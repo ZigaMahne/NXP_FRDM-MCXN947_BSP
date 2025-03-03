@@ -26,6 +26,7 @@ project:
     - component: Device:SDK Drivers:common
     - component: Device:SDK Drivers:mcx_spc
     - component: Device:SDK Drivers:reset
+    - component: Device:SDK Utilities:MCXN947_linker
 
     - component: CMSIS:CORE
 
@@ -34,9 +35,3 @@ project:
       files:
         - file: ./main.c
 
-  linker:
-    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
-      for-compiler: AC6
-
-    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
-      for-compiler: GCC
