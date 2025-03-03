@@ -110,6 +110,10 @@
       <require Cclass="Device" Cgroup="SDK Utilities" Csub="assert_lite"/>
       <require Cclass="Device" Cgroup="SDK Utilities" Csub="debug_console_lite"/>
     </condition>
+    <condition id="CMSIS_Driver_VIO">
+      <require condition="board.frdmmcxn947.internal_condition"/>
+      <require Cclass="Device" Cgroup="SDK Drivers" Csub="gpio"/>
+    </condition>
   </conditions>
   <examples>
     <example name="cdog" folder="boards/frdmmcxn947/driver_examples/cdog/cm33_core0" doc="readme.md">
@@ -1728,6 +1732,16 @@
         <file category="header" attr="config" name="boards/frdmmcxn947/project_template/peripherals.h" version="1.0.0" projectpath="board"/>
         <file category="sourceC" attr="config" name="boards/frdmmcxn947/project_template/peripherals.c" version="1.0.0" projectpath="board"/>
         <file category="include" name="boards/frdmmcxn947/project_template/"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="FRDM-MCXN947" Cversion="1.0.0" Capiversion="1.0.0" condition="CMSIS_Driver_VIO">
+      <description>Virtual I/O implementation for FRDM-MCXN947</description>
+      <RTE_Components_h>
+        #define RTE_VIO_BOARD
+        #define RTE_VIO_FRDM_MCXN947
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="boards/frdmmcxn947/cmsis/drivers/vio_FRDM-MCXN947.c"/>
       </files>
     </component>
   </components>
