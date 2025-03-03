@@ -1,10 +1,13 @@
 # NXP_FRDM-MCXN947_BSP
 
-This is the development repository for the **CMSIS additions** to the **NXP FRDM-MCXN947 Board Support Pack (BSP)**.
+**IMPORTANT**
+- This is a development repository for the **NXP FRDM-MCXN947 Board Support Pack (BSP)**. It demonstrates some CMSIS concepts, but it is not planned to release this pack directly from this repository. The concepts are proposals only.
 
-This BSP uses the generator integration of the [**CMSIS-Toolbox to configure NXP devices with MCUXpresso Config Tools**](https://github.com/Open-CMSIS-Pack/NXP_FRDM-MCXN947_BSP/tree/main/boards/frdmmcxn947/cmsis/doc/ConfigToolsGuide.md).
+- This BSP uses the generator integration of the [**CMSIS-Toolbox to configure NXP devices with MCUXpresso Config Tools**](https://github.com/Open-CMSIS-Pack/NXP_FRDM-MCXN947_BSP/tree/main/boards/frdmmcxn947/cmsis/doc/ConfigToolsGuide.md).
 
-## CMSIS additions top-level structure
+- This BSP contains in the folder [boards/frdmmcxn947/cmsis/templates/Device] additions that should be moved to the related DFP.
+
+## CMSIS Additions
 
 Directory                   | Description
 :---------------------------|:--------------
