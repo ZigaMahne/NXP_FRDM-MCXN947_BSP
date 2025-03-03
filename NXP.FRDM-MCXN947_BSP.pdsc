@@ -118,6 +118,9 @@
       <require condition="board.frdmmcxn947.internal_condition"/>
       <require Cclass="Device" Cgroup="SDK Drivers" Csub="gpio"/>
     </condition>
+    <condition id="Board_Layer">
+      <require Bvendor="NXP" Bname="FRDM-MCXN947"/>
+    </condition>
   </conditions>
   <examples>
     <example name="cdog" folder="boards/frdmmcxn947/driver_examples/cdog/cm33_core0" doc="readme.md">
@@ -1782,4 +1785,7 @@
       </files>
     </component>
   </components>
+  <csolution> 
+    <clayer type="Board" path="boards/frdmmcxn947/cmsis/layers/Default" file="Board.clayer.yml" copy-to="Board/FRDM-MCXN947" condition="Board_Layer"/>
+  </csolution>
 </package>

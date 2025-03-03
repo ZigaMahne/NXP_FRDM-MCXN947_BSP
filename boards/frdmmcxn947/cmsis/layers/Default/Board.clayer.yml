@@ -1,0 +1,116 @@
+layer:
+  type: Board
+  description: Board setup for Arduino shield
+  for-board: NXP::FRDM-MCXN947
+  for-device: NXP::MCXN947VDF:cm33_core0
+  processor:
+    trustzone: secure
+
+  generators:
+    options:
+      - generator: MCUXpressoConfig
+        path: ./MCUXpressoConfig
+        name: Board
+
+  connections:
+    - connect: FRDM-MCXN947 Board
+      provides:
+        - CMSIS_ETH
+        - CMSIS_VIO
+        - ARDUINO_UNO_I2C
+        - ARDUINO_UNO_SPI
+        - ARDUINO_UNO_UART
+        # - ARDUINO_UNO_D2
+        # - ARDUINO_UNO_D3
+        # - ARDUINO_UNO_D4
+        # - ARDUINO_UNO_D5
+        # - ARDUINO_UNO_D6
+        # - ARDUINO_UNO_D7
+        # - ARDUINO_UNO_D8
+        # - ARDUINO_UNO_D9
+        # - ARDUINO_UNO_D10
+        # - ARDUINO_UNO_D11
+        # - ARDUINO_UNO_D12
+        # - ARDUINO_UNO_D13
+        # - ARDUINO_UNO_D14
+        # - ARDUINO_UNO_D15
+        # - ARDUINO_UNO_D16
+        # - ARDUINO_UNO_D17
+        # - ARDUINO_UNO_D18
+        # - ARDUINO_UNO_D19
+        - STDIN
+        - STDOUT
+        - STDERR
+        - Heap : 65536
+
+  define:
+    - CMSIS_target_header: \"FRDM-MCXN947.h\"
+
+  packs:
+    - pack: ARM::CMSIS@^6.0.0
+    - pack: ARM::CMSIS-Compiler@^2.1.0
+    - pack: NXP::FRDM-MCXN947_BSP@^19.0.0-0
+    - pack: NXP::MCXN947_DFP@19.0.0
+
+  components:
+    - component: CMSIS:CORE
+    - component: CMSIS Driver:Ethernet MAC:Ethernet MAC
+    - component: CMSIS Driver:Ethernet PHY:LAN8741A
+    - component: CMSIS Driver:I2C:lpi2c_cmsis
+    - component: CMSIS Driver:SPI:lpspi_cmsis
+    - component: CMSIS Driver:USART:lpuart_cmsis
+    - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+
+    - component: Device:CMSIS:MCXN947_header
+    - component: Device:CMSIS:MCXN947_system
+
+    - component: Device:SDK Drivers:clock
+    - component: Device:SDK Drivers:common
+    - component: Device:SDK Drivers:edma
+    - component: Device:SDK Drivers:edma_soc
+    - component: Device:SDK Drivers:gpio
+    - component: Device:SDK Drivers:lpflexcomm
+    - component: Device:SDK Drivers:lpi2c
+      define:
+        - LPFLEXCOMM_INIT_NOT_USED_IN_DRIVER: 1
+    - component: Device:SDK Drivers:lpi2c_edma
+    - component: Device:SDK Drivers:lpspi
+    - component: Device:SDK Drivers:lpspi_edma
+    - component: Device:SDK Drivers:lpuart
+      define:
+        - LPFLEXCOMM_INIT_NOT_USED_IN_DRIVER: 1
+    - component: Device:SDK Drivers:lpuart_adapter
+    - component: Device:SDK Drivers:lpuart_edma
+    - component: Device:SDK Drivers:mcx_enet
+    - component: Device:SDK Drivers:mcx_spc
+    - component: Device:SDK Drivers:port
+    - component: Device:SDK Drivers:reset
+
+    - component: Device:SDK Project Template:RTE_Device
+
+    - component: Device:SDK Utilities:MCXN947_linker
+    - component: Device:SDK Utilities:assert_lite
+    - component: Device:SDK Utilities:debug_console_lite
+    - component: Device:SDK Utilities:str
+
+    - component: Device:Startup
+    - component: Device:Config Tools:Init
+
+  groups:
+    - group: Board
+      files:
+        - file: ./main.c
+        - file: ./main.h
+        - file: ./FRDM-MCXN947.h
+        - file: ./retarget_stdio.c
+
+  linker:
+    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
+      for-compiler: AC6
+    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
+      for-compiler: GCC
