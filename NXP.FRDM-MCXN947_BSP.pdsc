@@ -22,15 +22,43 @@
     </languages>
   </requirements>
   <boards>
-    <board vendor="NXP" name="FRDM-MCXN947">
-      <description>FRDM-MCXN947</description>
+    <board vendor="NXP" name="FRDM-MCXN947" orderForm="https://www.nxp.com/part/FRDM-MCXN947">
+      <description>FRDM Development Board for MCX N94 and N54 MCUs</description>
       <image small="boards/frdmmcxn947/frdmmcxn947.png"/>
+      <book category="overview"  name="https://www.nxp.com/document/guide/getting-started-with-frdm-mcxn947:GS-FRDM-MCXNXX" title="Getting Started"/>
+      <book category="overview"  name="https://www.nxp.com/docs/en/quick-reference-guide/FRDM-MCXN947-QSG.pdf" title="Quick Start Guide"/>
+      <book category="manual"    name="https://www.nxp.com/webapp/Download?colCode=UM12018&amp;isHTMLorPDF=HTML" title="User Manual"/>
+      <book category="schematic" name="https://www.nxp.com/webapp/Download?colCode=90818-MCXN947SH" title="Schematics"/>
+      <book category="other"     name="https://www.nxp.com/webapp/Download?colCode=FRDM-MCXN947-DESIGN-FILES" title="Design Files"/>
+
       <mountedDevice Dname="MCXN947VDF" Dvendor="NXP:11"/>
       <compatibleDevice Dname="MCXN946VDF" Dvendor="NXP:11"/>
       <compatibleDevice Dname="MCXN946VNL" Dvendor="NXP:11"/>
       <compatibleDevice Dname="MCXN946VPB" Dvendor="NXP:11"/>
       <compatibleDevice Dname="MCXN947VNL" Dvendor="NXP:11"/>
       <compatibleDevice Dname="MCXN947VPB" Dvendor="NXP:11"/>
+
+      <debugInterface adapter="JTAG/SW" connector="10-pin Cortex Debug Connector"/>
+      <debugProbe name="CMSIS-DAP" version="3.128" debugLink="swd" debugClock="10000000" connector="USB-C"/>
+
+      <feature type="ODbg"      n="1"        name="On-board MCU-Link debugger with CMSIS-DAP"/>
+      <feature type="XTAL"      n="24000000" name="Crystal Oscillator"/>
+      <feature type="PWR"       n="5V"       name=""/>
+      <feature type="ROM"       n="1"        name="64 Mbit QSPI Flash Memory"/>
+      <feature type="MemCard"   n="1"        name="SD Card Connector (not populated)"/>
+      <feature type="USB"       n="1"        name="USB-C connector with high-speed USB controller and PHY module"/>
+      <feature type="ETH"       n="1" m="100000000" name="RJ45 Connector"/>
+      <feature type="CAN"       n="1"        name="2-Pin Header, 1.27 mm Pitch"/>
+      <feature type="Button"    n="3"        name="Push-buttons: RESET, WAKEUP, ISP"/>
+      <feature type="Touch"     n="1"        name="Touch Slider for touch sensing detection"/>
+      <feature type="TempSens"  n="1"        name=""/>
+      <feature type="ConnOther" n="1"        name="Arduino header"/>
+      <feature type="ConnOther" n="1"        name="FRDM header"/>
+      <feature type="ConnOther" n="1"        name="mikroBUS header"/>
+      <feature type="ConnOther" n="1"        name="Pmod header"/>
+      <feature type="ConnOther" n="1"        name="FlexIO/LCD header"/>
+      <feature type="ConnOther" n="1"        name="SmartDMA/Camera header"/>
+      <feature type="LED"       n="1"        name="RGB LED"/>
     </board>
   </boards>
   <conditions>
