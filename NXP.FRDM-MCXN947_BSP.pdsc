@@ -6,6 +6,9 @@
   <url>https://mcuxpresso.nxp.com/cmsis_pack/repo/</url>
   <license>Licenses.txt</license>
   <releases>
+    <release version="19.1.0-dev">
+      Active development...
+    </release>
     <release version="19.0.0" date="2024-07-17">NXP CMSIS Packs based on MCUXpresso SDK 2.16.0</release>
     <release version="17.0.0" date="2024-01-29">NXP CMSIS Packs based on MCUXpresso SDK 2.14.0</release>
   </releases>
