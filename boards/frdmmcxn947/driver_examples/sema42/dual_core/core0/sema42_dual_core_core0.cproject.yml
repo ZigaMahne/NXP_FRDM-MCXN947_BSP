@@ -1,0 +1,428 @@
+---
+project:
+  description: The sema42 example shows how to use SEMA42 driver to lock and unlock
+    a sema gate:In this example:1. Firstly, Core 0 turn on LED  and lock a sema gate
+    then boot up Core 1 wake up.2. Core 1 must be wait until Core 0 unlocks this sema
+    gate to lock it.3. After user press any key in terminal window, the sema gate
+    will be unlocked by core 0,then core 1 will lock it and turn off the LEDIf the
+    board does not have LED to show the status, then core 1 will send a flagto core
+    0 when core 1 has locked the sema gate. Core 0 outputs the success logafter it
+    received the flag.
+  device: MCXN947VDF:cm33_core0
+  components:
+  - component: NXP::Device:SDK Drivers:mailbox
+  - component: NXP::Device:SDK Utilities:debug_console_lite
+  - component: NXP::Device:SDK Utilities:assert_lite
+  - component: NXP::Device:SDK Drivers:port
+  - component: NXP::Device:SDK Drivers:gpio
+  - component: NXP::Device:SDK Drivers:clock
+  - component: NXP::Device:SDK Drivers:sema42
+  - component: NXP::Device:SDK Utilities:incbin
+  - component: NXP::Device:SDK Drivers:common
+  - component: NXP::Device:SDK Drivers:reset
+  - component: NXP::Device:CMSIS:MCXN947_header
+  - component: NXP::Device:Startup
+  - component: NXP::Device:SDK Drivers:lpuart
+  - component: NXP::Device:SDK Drivers:lpuart_adapter
+  - component: NXP::Device:SDK Drivers:lists
+  - component: NXP::Device:SDK Utilities:misc_utilities
+  - component: NXP::Device:SDK Utilities:str
+  - component: NXP::Device:SDK Drivers:mcx_spc
+  - component: ARM::CMSIS:CORE
+  - component: NXP::Device:CMSIS:MCXN947_system
+  - component: NXP::Device:SDK Drivers:lpflexcomm
+  groups:
+  - group: source
+    files:
+    - file: sema42_core0.c
+  - group: board
+    files:
+    - file: pin_mux.c
+    - file: pin_mux.h
+    - file: board.c
+    - file: board.h
+    - file: clock_config.c
+    - file: clock_config.h
+  - group: MCXN947/iar
+    files:
+    - file: iar/MCXN947_cm33_core0_flash.icf
+      for-compiler:
+      - IAR
+      for-context:
+      - ".debug"
+      - ".release"
+  - group: MCXN947/arm
+    files:
+    - file: mdk/MCXN947_cm33_core0_flash.scf
+      for-compiler:
+      - AC6
+      for-context:
+      - ".debug"
+      - ".release"
+  - group: MCXN947/gcc
+    files:
+    - file: armgcc/MCXN947_cm33_core0_flash.ld
+      for-compiler:
+      - GCC
+      for-context:
+      - ".debug"
+      - ".release"
+  setups:
+  - setup: GCC
+    for-compiler: GCC
+    for-context: ".debug"
+    misc:
+    - ASM:
+      - "-I$ProjectDir()$/../core1/armgcc/debug"
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DDEBUG"
+      - "-D__STARTUP_CLEAR_BSS"
+      - "-g"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      C:
+      - "-DDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O0"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      CPP:
+      - "-DDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O0"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "-g"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "--specs=nano.specs"
+      - "--specs=nosys.specs"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-mapcs"
+      - "-Wl,--gc-sections"
+      - "-Wl,-static"
+      - "-Wl,-z"
+      - "-Wl,muldefs"
+      - "-Wl,-Map=output.map"
+      - "-Wl,--print-memory-usage"
+      Library:
+      - "-lm"
+      - "-lc"
+      - "-lgcc"
+      - "-lnosys"
+  - setup: GCC
+    for-compiler: GCC
+    for-context: ".release"
+    misc:
+    - ASM:
+      - "-I$ProjectDir()$/../core1/armgcc/release"
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DNDEBUG"
+      - "-D__STARTUP_CLEAR_BSS"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      C:
+      - "-DNDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Os"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      CPP:
+      - "-DNDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Os"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "--specs=nano.specs"
+      - "--specs=nosys.specs"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-mapcs"
+      - "-Wl,--gc-sections"
+      - "-Wl,-static"
+      - "-Wl,-z"
+      - "-Wl,muldefs"
+      - "-Wl,-Map=output.map"
+      - "-Wl,--print-memory-usage"
+      Library:
+      - "-lm"
+      - "-lc"
+      - "-lgcc"
+      - "-lnosys"
+  - setup: AC6
+    for-compiler: AC6
+    for-context: ".debug"
+    misc:
+    - ASM:
+      - "-I$ProjectDir()$/../core1/mdk/debug"
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DDEBUG"
+      C:
+      - "-DDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O1"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-std=c99"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-ffunction-sections"
+      - "-fno-common"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      CPP:
+      - "-DDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O1"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - --keep="*(*core1_code)"
+      - "--diag_suppress=6314"
+      - "--remove"
+      - "--entry=Reset_Handler"
+      - "--map"
+      - "--xref"
+      - "--callgraph"
+      - "--symbols"
+      - "--info sizes"
+      - "--info totals"
+      - "--info unused"
+      - "--info veneers"
+      - "--strict"
+      - "--diag_suppress 6314"
+      - "--library_type=microlib"
+  - setup: AC6
+    for-compiler: AC6
+    for-context: ".release"
+    misc:
+    - ASM:
+      - "-I$ProjectDir()$/../core1/mdk/release"
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DNDEBUG"
+      C:
+      - "-DNDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Oz"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-std=c99"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-ffunction-sections"
+      - "-fno-common"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      CPP:
+      - "-DNDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "-Oz"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - --keep="*(*core1_code)"
+      - "--diag_suppress=6314"
+      - "--remove"
+      - "--entry=Reset_Handler"
+      - "--map"
+      - "--xref"
+      - "--callgraph"
+      - "--symbols"
+      - "--info sizes"
+      - "--info totals"
+      - "--info unused"
+      - "--info veneers"
+      - "--strict"
+      - "--diag_suppress 6314"
+      - "--library_type=microlib"
+  - setup: IAR
+    for-compiler: IAR
+    for-context: ".debug"
+    misc:
+    - ASM:
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DDEBUG"
+      - "-r"
+      - "-s"
+      - -M"<>"
+      - "-w+"
+      - "-j"
+      C:
+      - "-DDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "--debug"
+      - "--no_cse"
+      - "--no_unroll"
+      - "--no_inline"
+      - "--no_code_motion"
+      - "--no_tbaa"
+      - "--no_clustering"
+      - "--no_scheduling"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--use_c++_inline"
+      - "-Ol"
+      CPP:
+      - "-DDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "--debug"
+      - "--no_cse"
+      - "--no_unroll"
+      - "--no_code_motion"
+      - "--no_tbaa"
+      - "--no_clustering"
+      - "--no_scheduling"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--c++"
+      Link:
+      - "--keep _sema42_dual_core_core1_image"
+      - "--image_input=$bin(sema42_dual_core_core1)$,_sema42_dual_core_core1_image,__core1_image,4"
+  - setup: IAR
+    for-compiler: IAR
+    for-context: ".release"
+    misc:
+    - ASM:
+      - "-I$OutDir(sema42_dual_core_core1)$"
+      - "-DNDEBUG"
+      - "-s"
+      - -M"<>"
+      - "-w+"
+      - "-j"
+      C:
+      - "-DNDEBUG"
+      - "-DCORE1_IMAGE_COPY_TO_RAM"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--use_c++_inline"
+      - "-Oh"
+      CPP:
+      - "-DNDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--c++"
+      Link:
+      - "--keep _sema42_dual_core_core1_image"
+      - "--image_input=$bin(sema42_dual_core_core1)$,_sema42_dual_core_core1_image,__core1_image,4"
+  rte:
+    base-dir: "./$TargetType$/RTE"

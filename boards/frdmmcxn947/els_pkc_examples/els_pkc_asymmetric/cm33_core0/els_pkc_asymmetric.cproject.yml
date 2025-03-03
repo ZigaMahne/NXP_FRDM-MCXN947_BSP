@@ -1,0 +1,461 @@
+---
+project:
+  description: The ELS PKC application provides examples which demonstrate usage of
+    asymmetric algorithms and a crypto library lightweight testing.
+  device: MCXN947VDF:cm33_core0
+  components:
+  - component: NXP::MCXN947 els_pkc:els_pkc_platform
+  - component: NXP::MCXN947 els_pkc:els_pkc_main
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples
+  - component: NXP::Device:SDK Drivers:common
+  - component: NXP::Device:SDK Drivers:clock
+  - component: NXP::Device:SDK Drivers:power
+  - component: NXP::Device:SDK Drivers:reset
+  - component: NXP::Device:CMSIS:MCXN947_header
+  - component: NXP::Device:Startup
+  - component: NXP::Device:SDK Drivers:lpuart
+  - component: NXP::Device:SDK Drivers:gpio
+  - component: NXP::Device:SDK Drivers:port
+  - component: NXP::Device:SDK Utilities:assert
+  - component: NXP::Device:SDK Utilities:debug_console
+  - component: NXP::Device:SDK Drivers:lpuart_adapter
+  - component: NXP::Device:SDK Utilities:serial_manager_uart
+  - component: NXP::Device:SDK Utilities:serial_manager
+  - component: NXP::Device:SDK Drivers:lists
+  - component: NXP::Device:SDK Utilities:misc_utilities
+  - component: NXP::MCXN947 els_pkc:els_pkc_random_modes_ctr
+  - component: NXP::MCXN947 els_pkc:els_pkc_trng_type_els
+  - component: NXP::MCXN947 els_pkc:els_pkc_flow_protection
+  - component: NXP::MCXN947 els_pkc:els_pkc_secure_counter
+  - component: NXP::MCXN947 els_pkc:els_pkc_pre_processor
+  - component: NXP::MCXN947 els_pkc:els_pkc_memory
+  - component: NXP::MCXN947 els_pkc:els_pkc_aes
+  - component: NXP::MCXN947 els_pkc:els_pkc_trng
+  - component: NXP::MCXN947 els_pkc:els_pkc_core
+  - component: NXP::MCXN947 els_pkc:els_pkc_param_integrity
+  - component: NXP::MCXN947 els_pkc:els_pkc_toolchain
+  - component: NXP::MCXN947 els_pkc:els_pkc_key
+  - component: NXP::MCXN947 els_pkc:els_pkc_els
+  - component: NXP::MCXN947 els_pkc:els_pkc_session
+  - component: NXP::MCXN947 els_pkc:els_pkc_ecc
+  - component: NXP::MCXN947 els_pkc:els_pkc_buffer
+  - component: NXP::MCXN947 els_pkc:els_pkc_els_header_only
+  - component: NXP::MCXN947 els_pkc:els_pkc_els_common
+  - component: NXP::MCXN947 els_pkc:els_pkc_hash
+  - component: NXP::MCXN947 els_pkc:els_pkc_mac_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_aead_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_data_integrity
+  - component: NXP::MCXN947 els_pkc:els_pkc_cipher_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_hashmodes
+  - component: NXP::MCXN947 els_pkc:els_pkc_mac
+  - component: NXP::MCXN947 els_pkc:els_pkc_padding
+  - component: NXP::MCXN947 els_pkc:els_pkc_hmac
+  - component: NXP::MCXN947 els_pkc:els_pkc_aead
+  - component: NXP::MCXN947 els_pkc:els_pkc_cipher
+  - component: NXP::MCXN947 els_pkc:els_pkc_random
+  - component: NXP::MCXN947 els_pkc:els_pkc_random_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_prng
+  - component: NXP::MCXN947 els_pkc:els_pkc_math
+  - component: NXP::MCXN947 els_pkc:els_pkc_rsa
+  - component: NXP::MCXN947 els_pkc:els_pkc_pkc
+  - component: NXP::MCXN947 els_pkc:doc:doc_mcxn
+  - component: NXP::MCXN947 els_pkc:static_lib_mcxn:mcxn
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_aead
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_cipher
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_ecc
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_els
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_hash_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_hmac
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_key
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_mac_modes
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_rsa
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_flow_protection
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_memory
+  - component: NXP::MCXN947 els_pkc:els_pkc_examples_random_modes
+  - component: NXP::Device:SDK Drivers:mcx_spc
+  - component: ARM::CMSIS:CORE
+  - component: NXP::Device:CMSIS:MCXN947_system
+  - component: NXP::Device:SDK Drivers:lpflexcomm
+  - component: NXP::Device:SDK Utilities:str
+  groups:
+  - group: main
+    files:
+    - file: els_pkc_asymmetric.c
+    - file: els_pkc_asymmetric.h
+  - group: board
+    files:
+    - file: pin_mux.c
+    - file: pin_mux.h
+    - file: board.c
+    - file: board.h
+    - file: clock_config.c
+    - file: clock_config.h
+  - group: MCXN947/iar
+    files:
+    - file: iar/MCXN947_cm33_core0_flash.icf
+      for-compiler:
+      - IAR
+      for-context:
+      - ".debug"
+      - ".release"
+  - group: MCXN947/arm
+    files:
+    - file: mdk/MCXN947_cm33_core0_flash.scf
+      for-compiler:
+      - AC6
+      for-context:
+      - ".debug"
+      - ".release"
+  - group: MCXN947/gcc
+    files:
+    - file: armgcc/MCXN947_cm33_core0_flash.ld
+      for-compiler:
+      - GCC
+      for-context:
+      - ".debug"
+      - ".release"
+  setups:
+  - setup: IAR
+    for-compiler: IAR
+    for-context: ".release"
+    misc:
+    - C:
+      - "-DNDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--use_c++_inline"
+      - "-Oh"
+      ASM:
+      - "-DNDEBUG"
+      - "-s"
+      - -M"<>"
+      - "-w+"
+      - "-j"
+      CPP:
+      - "-DNDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--c++"
+      Link:
+      - "--config_def __stack_size__=0x1000"
+  - setup: IAR
+    for-compiler: IAR
+    for-context: ".debug"
+    misc:
+    - C:
+      - "-DDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "--debug"
+      - "--no_cse"
+      - "--no_unroll"
+      - "--no_inline"
+      - "--no_code_motion"
+      - "--no_tbaa"
+      - "--no_clustering"
+      - "--no_scheduling"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--use_c++_inline"
+      - "-Ol"
+      ASM:
+      - "-DDEBUG"
+      - "-r"
+      - "-s"
+      - -M"<>"
+      - "-w+"
+      - "-j"
+      CPP:
+      - "-DDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "--debug"
+      - "--no_cse"
+      - "--no_unroll"
+      - "--no_code_motion"
+      - "--no_tbaa"
+      - "--no_clustering"
+      - "--no_scheduling"
+      - "--diag_suppress Pa082,Pa050,Pe188,Pe069"
+      - "-e"
+      - "--c++"
+      Link:
+      - "--config_def __stack_size__=0x1000"
+  - setup: AC6
+    for-compiler: AC6
+    for-context: ".release"
+    misc:
+    - C:
+      - "-DNDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Oz"
+      - "-Wno-tautological-constant-compare"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-std=c99"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-ffunction-sections"
+      - "-fno-common"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      ASM:
+      - "-DNDEBUG"
+      CPP:
+      - "-DNDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "-Oz"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "--diag_suppress=6314"
+      - "--remove"
+      - "--entry=Reset_Handler"
+      - "--map"
+      - "--xref"
+      - "--callgraph"
+      - "--symbols"
+      - "--info sizes"
+      - "--info totals"
+      - "--info unused"
+      - "--info veneers"
+      - "--strict"
+      - "--diag_suppress 6314"
+      - "--library_type=microlib"
+      - --predefine="-D__stack_size__=0x1000"
+  - setup: AC6
+    for-compiler: AC6
+    for-context: ".debug"
+    misc:
+    - C:
+      - "-DDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O1"
+      - "-Wno-tautological-constant-compare"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-std=c99"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-ffunction-sections"
+      - "-fno-common"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      ASM:
+      - "-DDEBUG"
+      CPP:
+      - "-DDEBUG"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O1"
+      - "-mcpu=cortex-m33"
+      - "-mfpu=fpv5-sp-d16"
+      - "-fshort-enums"
+      - "-fshort-wchar"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "--diag_suppress=6314"
+      - "--remove"
+      - "--entry=Reset_Handler"
+      - "--map"
+      - "--xref"
+      - "--callgraph"
+      - "--symbols"
+      - "--info sizes"
+      - "--info totals"
+      - "--info unused"
+      - "--info veneers"
+      - "--strict"
+      - "--diag_suppress 6314"
+      - "--library_type=microlib"
+      - --predefine="-D__stack_size__=0x1000"
+  - setup: GCC
+    for-compiler: GCC
+    for-context: ".debug"
+    misc:
+    - C:
+      - "-DDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O0"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      ASM:
+      - "-DDEBUG"
+      - "-D__STARTUP_CLEAR_BSS"
+      - "-g"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      CPP:
+      - "-DDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-g"
+      - "-O0"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "-g"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "--specs=nano.specs"
+      - "--specs=nosys.specs"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-mapcs"
+      - "-Wl,--gc-sections"
+      - "-Wl,-static"
+      - "-Wl,-z"
+      - "-Wl,muldefs"
+      - "-Wl,-Map=output.map"
+      - "-Wl,--print-memory-usage"
+      - "-Wl,--defsym=__stack_size__=0x1000"
+      Library:
+      - "-lm"
+      - "-lc"
+      - "-lgcc"
+      - "-lnosys"
+  - setup: GCC
+    for-compiler: GCC
+    for-context: ".release"
+    misc:
+    - C:
+      - "-DNDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Os"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      ASM:
+      - "-DNDEBUG"
+      - "-D__STARTUP_CLEAR_BSS"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-std=gnu99"
+      CPP:
+      - "-DNDEBUG"
+      - "-DCPU_MCXN947VDF_cm33_core0"
+      - "-DMCUXPRESSO_SDK"
+      - "-Os"
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "-mthumb"
+      - "-MMD"
+      - "-MP"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mapcs"
+      - "-fno-rtti"
+      - "-fno-exceptions"
+      Link:
+      - "-mcpu=cortex-m33"
+      - "-Wall"
+      - "-mfloat-abi=hard"
+      - "-mfpu=fpv5-sp-d16"
+      - "--specs=nano.specs"
+      - "--specs=nosys.specs"
+      - "-fno-common"
+      - "-ffunction-sections"
+      - "-fdata-sections"
+      - "-fno-builtin"
+      - "-mthumb"
+      - "-mapcs"
+      - "-Wl,--gc-sections"
+      - "-Wl,-static"
+      - "-Wl,-z"
+      - "-Wl,muldefs"
+      - "-Wl,-Map=output.map"
+      - "-Wl,--print-memory-usage"
+      - "-Wl,--defsym=__stack_size__=0x1000"
+      Library:
+      - "-lm"
+      - "-lc"
+      - "-lgcc"
+      - "-lnosys"
+  rte:
+    base-dir: "./$TargetType$/RTE"

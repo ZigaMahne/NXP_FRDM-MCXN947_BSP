@@ -1,0 +1,23 @@
+---
+solution:
+  created-for: cmsis-toolbox@2.1.0
+  packs:
+  - pack: NXP::MCXN947_DFP
+  - pack: ARM::CMSIS
+  target-types:
+  - type: iar
+    compiler: IAR
+  - type: mdk
+    compiler: AC6
+  output-dirs:
+    outdir: "$ProjectDir()$/$TargetType$/$BuildType$"
+  build-types:
+  - type: release
+    context-map:
+    - mcx_secure_gpio_s.release
+  - type: debug
+    context-map:
+    - mcx_secure_gpio_s.debug
+  projects:
+  - project: secure_gpio_s/mcx_secure_gpio_s.cproject.yml
+  - project: secure_gpio_ns/mcx_secure_gpio_ns.cproject.yml
