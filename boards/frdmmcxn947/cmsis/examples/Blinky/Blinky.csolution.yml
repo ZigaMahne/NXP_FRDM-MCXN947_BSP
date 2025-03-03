@@ -1,0 +1,25 @@
+solution:
+  created-for: CMSIS-Toolbox@2.6.0
+
+  select-compiler:
+    - compiler: AC6
+    - compiler: GCC
+    - compiler: IAR
+
+  compiler: AC6
+
+  target-types:
+    - type: FRDM-MCXN947
+      board: NXP::FRDM-MCXN947
+
+  build-types:
+    - type: Debug
+      debug: on
+      optimize: none
+
+    - type: Release
+      debug: off
+      optimize: balanced
+
+  projects:
+    - project: ./Blinky.cproject.yml

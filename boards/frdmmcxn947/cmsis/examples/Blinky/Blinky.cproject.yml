@@ -1,0 +1,69 @@
+project:
+  device: :cm33_core0
+
+  generators:
+    options:
+      - generator: MCUXpressoConfig
+        path: ./MCUXpressoConfig
+        name: ConfigTools
+
+  packs:
+    - pack: ARM::CMSIS@^6.0.0
+    - pack: ARM::CMSIS-Compiler@^2.1.0
+    - pack: ARM::CMSIS-RTX@5.9.0
+    - pack: NXP::FRDM-MCXN947_BSP@^19.0.0
+    - pack: NXP::MCXN947_DFP@19.0.0
+
+  setups:
+    - setup: Options for Project
+      processor:
+        fpu: sp
+        trustzone: "off"
+
+  components:
+    - component: CMSIS:CORE
+    - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+
+    - component: CMSIS:OS Tick:SysTick
+    - component: CMSIS:RTOS2:Keil RTX5&Source
+
+    - component: Device:Config Tools:Init
+    - component: Device:Startup
+    - component: Device:CMSIS:MCXN947_header
+    - component: Device:CMSIS:MCXN947_system
+
+    - component: Device:SDK Drivers:clock
+    - component: Device:SDK Drivers:common
+    - component: Device:SDK Drivers:gpio
+    - component: Device:SDK Drivers:lpflexcomm
+    - component: Device:SDK Drivers:lpuart
+    - component: Device:SDK Drivers:lpuart_adapter
+    - component: Device:SDK Drivers:mcx_spc
+    - component: Device:SDK Drivers:port
+    - component: Device:SDK Drivers:reset
+
+    - component: Device:SDK Utilities:MCXN947_linker
+    - component: Device:SDK Utilities:assert_lite
+    - component: Device:SDK Utilities:debug_console_lite
+    - component: Device:SDK Utilities:str
+  groups:
+    - group: App
+      files:
+        - file: Blinky.c
+    - group: Board
+      files:
+        - file: ./main.c
+        - file: ./main.h
+        - file: ./FRDM-MCXN947.h
+        - file: ./retarget_stdio.c
+
+  linker:
+    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
+      for-compiler: AC6
+    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
+      for-compiler: GCC
