@@ -49,12 +49,13 @@ layer:
   packs:
     - pack: ARM::CMSIS@^6.0.0
     - pack: ARM::CMSIS-Compiler@^2.1.0
+    - pack: ARM::CMSIS-Driver@^2.10.0-0
     - pack: NXP::FRDM-MCXN947_BSP@^19.0.0-0
     - pack: NXP::MCXN947_DFP@19.0.0
 
   components:
     - component: CMSIS:CORE
-    - component: CMSIS Driver:Ethernet MAC:Ethernet MAC
+    - component: CMSIS Driver:Ethernet MAC
     - component: CMSIS Driver:Ethernet PHY:LAN8741A
     - component: CMSIS Driver:I2C:lpi2c_cmsis
     - component: CMSIS Driver:SPI:lpspi_cmsis
