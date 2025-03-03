@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2023 Arm Limited. All rights reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ----------------------------------------------------------------------------
+  Stack seal size definition
+ *----------------------------------------------------------------------------*/
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#define __STACKSEAL_SIZE 8
+#else
+#define __STACKSEAL_SIZE 0
+#endif
+
+/*----------------------------------------------------------------------------
+  Scatter File Definitions definition
+ *----------------------------------------------------------------------------*/
+
+LR_ROM0 __ROM0_BASE __ROM0_SIZE  {
+
+  ER_ROM0 __ROM0_BASE __ROM0_SIZE {
+    *.o (RESET, +First)
+    *(InRoot$$Sections)
+    *(+RO +XO)
+  }
+/*
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  ER_CMSE_VENEER __VENEER_BASE __VENEER_SIZE {
+    *(Veneer$$CMSE)
+  }
+#endif
+*/
+  RW_NOINIT __RAM0_BASE UNINIT (__RAM0_SIZE - __HEAP_SIZE - __STACK_SIZE - __STACKSEAL_SIZE) {
+    *.o(.bss.noinit)
+    *.o(.bss.noinit.*)
+  }
+
+  RW_RAM0 AlignExpr(+0, 8) (__RAM0_SIZE - __HEAP_SIZE - __STACK_SIZE - __STACKSEAL_SIZE - AlignExpr(ImageLength(RW_NOINIT), 8)) {
+    *(+RW +ZI)
+  }
+
+#if __HEAP_SIZE > 0
+  ARM_LIB_HEAP  (AlignExpr(+0, 8)) EMPTY __HEAP_SIZE  {   ; Reserve empty region for heap
+  }
+#endif
+
+  ARM_LIB_STACK (__RAM0_BASE + __RAM0_SIZE - __STACKSEAL_SIZE) EMPTY -__STACK_SIZE {   ; Reserve empty region for stack
+  }
+
+#if __STACKSEAL_SIZE > 0
+  STACKSEAL +0 EMPTY __STACKSEAL_SIZE {             ; Reserve empty region for stack seal immediately after stack
+  }
+#endif
+}
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+LR_CMSE_VENEER __VENEER_BASE ALIGN 32 __VENEER_SIZE  {
+
+  ER_CMSE_VENEER __VENEER_BASE __VENEER_SIZE {
+    *(Veneer$$CMSE)
+  }
+}
+#endif

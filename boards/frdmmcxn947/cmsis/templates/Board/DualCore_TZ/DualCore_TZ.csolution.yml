@@ -1,0 +1,32 @@
+solution:
+  created-for: CMSIS-Toolbox@2.6.0
+  cdefault:
+
+  select-compiler:
+    - compiler: AC6
+
+  compiler: AC6
+
+  packs:
+    - pack: NXP::FRDM-MCXN947_BSP
+    - pack: NXP::MCXN947_DFP
+    - pack: ARM::CMSIS
+
+  target-types:
+    - type: MCXN947
+      device: NXP::MCXN947VDF
+      board: NXP::FRDM-MCXN947
+
+  build-types:
+    - type: Debug
+      debug: on
+      optimize: none
+
+    - type: Release
+      debug: off
+      optimize: balanced
+
+  projects:
+    - project: ./cm33_core1/core1.cproject.yml
+    - project: ./cm33_core0/secure/core0_s.cproject.yml
+    - project: ./cm33_core0/non-secure/core0_ns.cproject.yml
