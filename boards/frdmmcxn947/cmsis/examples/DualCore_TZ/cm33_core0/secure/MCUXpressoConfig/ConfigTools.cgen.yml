@@ -1,0 +1,16 @@
+generator-import:
+  generated-by: 'MCUXpresso config tools Generated: 09/12/2024 11:04:48'
+  for-device: MCXN947
+  for-board: FRDM-MCXN947
+  groups:
+  - group: ConfigTools board
+    files:
+    - file: board/clock_config.c
+    - file: board/clock_config.h
+    - file: board/peripherals.c
+    - file: board/peripherals.h
+    - file: board/pin_mux.c
+    - file: board/pin_mux.h
+    - file: trustzone/resource_config.c
+    - file: trustzone/resource_config.h
+    - file: utilities/fsl_debug_console_conf.h

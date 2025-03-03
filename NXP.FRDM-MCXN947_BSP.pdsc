@@ -1738,6 +1738,14 @@
       </project>
       <attributes/>
     </example>
+    <example name="DualCore_TZ" folder="boards/frdmmcxn947/cmsis/examples/DualCore_TZ" doc="README.md">
+      <description>Dual Core example utilizing TrustZone and using MCUXpresso Config Tools.</description>
+      <board name="FRDM-MCXN947" vendor="NXP" Dvendor="NXP:11"/>
+      <project>
+        <environment name="csolution" load="DualCore_TZ.csolution.yml"/>
+      </project>
+      <attributes/>
+    </example>
   </examples>
   <components>
     <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmmcxn947" Cversion="1.0.0" condition="BOARD_Project_Template.frdmmcxn947.condition_id">

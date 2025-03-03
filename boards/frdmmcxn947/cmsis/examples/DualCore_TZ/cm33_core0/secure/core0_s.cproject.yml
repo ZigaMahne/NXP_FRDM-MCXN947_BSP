@@ -1,0 +1,66 @@
+project:
+  device: :cm33_core0
+  processor:
+    trustzone: secure
+
+  generators:
+    options:
+      - generator: MCUXpressoConfig
+        path: ./MCUXpressoConfig
+        name: ConfigTools
+
+  components:
+    - component: Device:Config Tools:Init
+    - component: Device:Startup
+    - component: Device:CMSIS:MCXN947_header
+    - component: Device:CMSIS:MCXN947_system
+
+    - component: Device:SDK Drivers:clock
+    - component: Device:SDK Drivers:common
+    - component: Device:SDK Drivers:edma
+    - component: Device:SDK Drivers:edma_soc
+    - component: Device:SDK Drivers:gpio
+    - component: Device:SDK Drivers:lpflexcomm
+    - component: Device:SDK Drivers:lpuart
+    - component: Device:SDK Drivers:lpuart_adapter
+    - component: Device:SDK Drivers:lpuart_edma
+    - component: Device:SDK Drivers:mcx_spc
+    - component: Device:SDK Drivers:reset
+
+    - component: Device:SDK Utilities:assert_lite
+    - component: Device:SDK Utilities:debug_console_lite
+    - component: Device:SDK Utilities:str
+
+    - component: CMSIS:CORE
+
+    - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+
+  groups:
+    - group: App
+      files:
+        - file: ./app_main.c
+
+    - group: CMSE Library
+      files:
+        - file: ./secure_lib.c
+        - file: ./secure_lib.h
+
+    - group: Board
+      files:
+        - file: ./main.c
+        - file: ./main.h
+        - file: ./retarget_stdio.c
+
+    - group: Documentation
+      files:
+        - file: ../../README.md
+
+  linker:
+    - regions: ../../regions_MCXN947VDF.h
+      define:
+        - CPU_MCXN947VDF_cm33_core0
