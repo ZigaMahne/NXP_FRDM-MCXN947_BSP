@@ -1,0 +1,23 @@
+solution:
+  created-for: CMSIS-Toolbox@2.6.0
+  cdefault:
+
+  select-compiler:
+    - compiler: AC6
+    - compiler: GCC
+    - compiler: IAR
+
+  target-types:
+
+  build-types:
+    - type: Debug
+      debug: on
+      optimize: debug
+
+    - type: Release
+      debug: off
+      optimize: balanced
+
+  projects:
+    - project: ./cm33_core1/core1.cproject.yml
+    - project: ./cm33_core0/core0.cproject.yml
