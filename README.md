@@ -3,6 +3,10 @@
 **IMPORTANT**
 - This is a development repository for the **NXP FRDM-MCXN947 Board Support Pack (BSP)**. It demonstrates some CMSIS concepts, but it is not planned to release this pack directly from this repository. The concepts are proposals only.
 
+- Further work on [project templates](https://github.com/Open-CMSIS-Pack/NXP_FRDM-MCXN947_BSP/tree/main/boards/frdmmcxn947/cmsis/templates) would require alignment on the Linker Script Management. The automatic linker script management needs a C Startup code. `main.c` should call the board setup functions which needs to be added.
+
+- When using CMSIS-Toolbox 2.8.0 with the releated DFP, an error is generated as the `pack: NXP.MCXN947_DFP@19.0.0` contains an empty `<block/>` which causes a failure. As workaround remove the element `<block/>` in the DFP. See also [#2003: Debug Sequence with <block/> creates unexpected instance type](https://github.com/Open-CMSIS-Pack/devtools/issues/2003).
+
 - This BSP uses the generator integration of the [**CMSIS-Toolbox to configure NXP devices with MCUXpresso Config Tools**](https://github.com/Open-CMSIS-Pack/NXP_FRDM-MCXN947_BSP/tree/main/boards/frdmmcxn947/cmsis/doc/ConfigToolsGuide.md).
 
 - This BSP contains in the folder [boards/frdmmcxn947/cmsis/templates/Device] additions that should be moved to the related DFP.
