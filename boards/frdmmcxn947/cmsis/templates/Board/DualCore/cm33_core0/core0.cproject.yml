@@ -39,6 +39,6 @@ project:
         - --keep="*(*core1_code)"
 
   linker:
-    - regions: ../regions_MCXN947VDF.h
+    - regions: ../regions_MCXN947.h
       define:
         - CPU_MCXN947VDF_cm33_core0
