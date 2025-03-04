@@ -54,7 +54,7 @@ solution:
   build-types:                                # Defines toolchain options for 'debug' and 'release'
     - type: Debug
       debug: on
-      optimize: none
+      optimize: debug
 
     - type: Release
       debug: off
