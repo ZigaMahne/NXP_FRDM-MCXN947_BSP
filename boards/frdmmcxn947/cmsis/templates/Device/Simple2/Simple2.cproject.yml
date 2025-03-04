@@ -35,4 +35,4 @@ project:
         - file: ./main.c
 
   linker:
-    - script: $LinkerScript$
+    - regions: $RegionsHeader$

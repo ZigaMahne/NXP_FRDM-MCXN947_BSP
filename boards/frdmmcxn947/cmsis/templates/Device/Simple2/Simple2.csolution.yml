@@ -1,6 +1,6 @@
 # A solution is a collection of related projects that share same base configuration.
 solution:
-  created-for: CMSIS-Toolbox@2.6.0
+  created-for: CMSIS-Toolbox@2.8.0
   cdefault:
 
   # List of tested compilers that can be selected
@@ -18,34 +18,18 @@ solution:
   # List different hardware targets that are used to deploy the solution.
   target-types:
     - type: ${Name}_ROM
-      device: NXP::MCXN947VDF
-      variables:
-        # TODO: Replace LinkerScript specification with regions specification and use
-        #       auto generated linker scripts. Below is a temporary solution.
-        # AC6
-        - LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
-        # GCC
-        #- LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
-        # IAR
-        #- LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.icf
+      variables: 
+        - RegionsHeader: memory_flash.h
 
     - type: ${Name}_RAM
-      device: NXP::MCXN947VDF
       variables:
-        # TODO: Replace LinkerScript specification with regions specification and use
-        #       auto generated linker scripts. Below is a temporary solution.
-        # AC6
-        - LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_ram.scf
-        # GCC
-        #- LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_ram.ld
-        # IAR
-        #- LinkerScript: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_ram.icf
+        - RegionsHeader: memory_ram.h
 
   # List of different build configurations.
   build-types:
     - type: Debug
       debug: on
-      optimize: none
+      optimize: debug
 
     - type: Release
       debug: off
