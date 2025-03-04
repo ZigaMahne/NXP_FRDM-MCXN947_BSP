@@ -19,11 +19,11 @@ solution:
   target-types:
     - type: ${Name}_ROM
       variables: 
-        - RegionsHeader: memory_flash.h
+        - RegionsHeader: regions_rom.h
 
     - type: ${Name}_RAM
       variables:
-        - RegionsHeader: memory_ram.h
+        - RegionsHeader: regions_ram.h
 
   # List of different build configurations.
   build-types:
