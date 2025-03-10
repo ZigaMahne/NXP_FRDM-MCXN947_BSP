@@ -19,7 +19,18 @@
 #include "RTE_Components.h"
 #include  CMSIS_device_header
 
+#include "clock_config.h"
+#include "peripherals.h"
+#include "pin_mux.h"
+#include "resource_config.h"
+
 int main (void) {
+
+  /* System initialization */
+  BOARD_InitBootClocks();
+  BOARD_InitBootPeripherals();
+  BOARD_InitBootPins();
+  BOARD_InitBootTEE();
 
   while(1) {
     ;
