@@ -26,7 +26,7 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /*!
- * @brief 
+ * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);

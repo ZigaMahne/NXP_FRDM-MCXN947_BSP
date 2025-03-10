@@ -1,6 +1,7 @@
 generator-import:
-  generated-by: 'MCUXpresso config tools Generated: 10/03/2025 11:33:39'
+  generated-by: 'MCUXpresso config tools Generated: 10/03/2025 10:59:09'
   for-device: MCXN947
+  for-board: FRDM-MCXN947
   groups:
   - group: ConfigTools board
     files:

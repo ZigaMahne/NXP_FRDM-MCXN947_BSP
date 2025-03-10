@@ -10,7 +10,7 @@
          <core name="Cortex-M33 (Core #0)" id="cm33_core0" description=""/>
          <core name="Cortex-M33 (Core #1)" id="cm33_core1" description=""/>
       </cores>
-      <description>Configuration for FRDM-MCXN947</description>
+      <description>Configuration for MCXN947</description>
    </common>
    <preferences>
       <validate_boot_init_only>true</validate_boot_init_only>
@@ -21,8 +21,8 @@
    <tools>
       <pins name="Pins" version="17.0" enabled="true" update_project_code="true">
          <generated_project_files>
-            <file path="../MCUXpressoConfig/board/pin_mux.c" update_enabled="true"/>
-            <file path="../MCUXpressoConfig/board/pin_mux.h" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/pin_mux.c" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/pin_mux.h" update_enabled="true"/>
          </generated_project_files>
          <pins_profile>
             <processor_version>24.12.10</processor_version>
@@ -248,8 +248,8 @@
       </pins>
       <clocks name="Clocks" version="15.0" enabled="true" update_project_code="true">
          <generated_project_files>
-            <file path="../MCUXpressoConfig/board/clock_config.c" update_enabled="true"/>
-            <file path="../MCUXpressoConfig/board/clock_config.h" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/clock_config.c" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/clock_config.h" update_enabled="true"/>
          </generated_project_files>
          <clocks_profile>
             <processor_version>24.12.10</processor_version>
@@ -567,8 +567,8 @@
       </dcdx>
       <periphs name="Peripherals" version="15.0" enabled="true" update_project_code="true">
          <generated_project_files>
-            <file path="../MCUXpressoConfig/board/peripherals.c" update_enabled="true"/>
-            <file path="../MCUXpressoConfig/board/peripherals.h" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/peripherals.c" update_enabled="true"/>
+            <file path="../cm33_core0/MCUXpressoConfig/board/peripherals.h" update_enabled="true"/>
          </generated_project_files>
          <peripherals_profile>
             <processor_version>24.12.10</processor_version>

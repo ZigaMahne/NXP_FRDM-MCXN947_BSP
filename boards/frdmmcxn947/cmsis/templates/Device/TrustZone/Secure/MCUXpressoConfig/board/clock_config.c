@@ -18,11 +18,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Clocks v14.0
+product: Clocks v15.0
 processor: MCXN947
 package_id: MCXN947VDF
 mcu_data: ksdk2_0
-processor_version: 16.3.0
+processor_version: 24.12.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -106,6 +106,7 @@ void BOARD_BootClockRUN(void)
     SPC_SetSRAMOperateVoltage(SPC0, &sramCfg);
 
     CLOCK_SetupFROHFClocking(48000000U);               /*!< Enable FRO HF(48MHz) output */
+    SCG0->SIRCCSR |= SCG_SIRCCSR_SIRC_CLK_PERIPH_EN_MASK; 
  
     /* Configure FREQME clock */
     SYSCON->CLOCK_CTRL |=

@@ -10,10 +10,10 @@ product: Peripherals v15.0
 processor: MCXN947
 package_id: MCXN947VDF
 mcu_data: ksdk2_0
-processor_version: 16.3.0
+processor_version: 24.12.10
 functionalGroups:
 - name: BOARD_InitPeripherals
-  UUID: dadba190-16f6-4a39-b99a-26a4d5e08346
+  UUID: 85e92a4a-3030-4268-938a-d35bb2bcf93e
   called_from_default_init: true
   selectedCore: cm33_core0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
