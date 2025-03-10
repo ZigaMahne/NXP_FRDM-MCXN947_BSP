@@ -9,6 +9,9 @@ solution:
     - compiler: GCC
     - compiler: IAR
 
+  # List the packs that define the device and/or board.
+  packs:
+
   # List different hardware targets that are used to deploy the solution.
   target-types:
     - type: ${Name}_ROM

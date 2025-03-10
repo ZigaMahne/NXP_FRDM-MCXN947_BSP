@@ -20,10 +20,6 @@ project:
     - component: Device:SDK Drivers:mcx_spc
     - component: Device:SDK Drivers:reset
 
-    - component: Device:SDK Utilities:incbin
-      add-path-asm:
-        - $OutDir(core1)$
-
     - component: CMSIS:CORE
 
   groups:

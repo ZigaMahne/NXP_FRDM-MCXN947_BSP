@@ -28,4 +28,3 @@ project:
     - regions: ../regions_MCXN947.h
       define:
         - CPU_MCXN947_cm33_core1
-

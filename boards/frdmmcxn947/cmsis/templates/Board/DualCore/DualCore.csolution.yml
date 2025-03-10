@@ -1,14 +1,21 @@
+# A solution is a collection of related projects that share same base configuration.
 solution:
   created-for: CMSIS-Toolbox@2.6.0
   cdefault:
 
+  # List of tested compilers that can be selected
   select-compiler:
     - compiler: AC6
 
   compiler: AC6
 
+  # List the packs that define the device and/or board.
+  packs:
+
+  # List different hardware targets that are used to deploy the solution.
   target-types:
 
+  # List of different build configurations.
   build-types:
     - type: Debug
       debug: on
@@ -18,6 +25,7 @@ solution:
       debug: off
       optimize: balanced
 
+  # List related projects.
   projects:
     - project: ./cm33_core1/core1.cproject.yml
     - project: ./cm33_core0/core0.cproject.yml
