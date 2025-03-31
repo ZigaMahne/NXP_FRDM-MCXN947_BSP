@@ -10,6 +10,7 @@
  * Included files
  **********************************************************************************************************************/
 #include "fsl_common.h"
+#include "clock_config.h"
 #include "fsl_debug_console.h"
 #include "fsl_clock.h"
 
