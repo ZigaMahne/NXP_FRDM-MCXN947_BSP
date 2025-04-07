@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2024 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2024-2025 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -23,9 +23,9 @@
 #include "clock_config.h"
 #include "peripherals.h"
 #include "pin_mux.h"
-//#include "resource_config.h"
 
 #include "main.h"
+#include "fsl_gpio.h"
 
 int main (void) {
 
@@ -33,10 +33,12 @@ int main (void) {
   BOARD_InitBootClocks();
   BOARD_InitBootPeripherals();
   BOARD_InitBootPins();
-  //BOARD_InitBootTEE();
 
   /* Initialize Virtual I/O */
   vioInit();
+
+  /* Enable non-secure control of GPIO0_27 */
+  GPIO_EnablePinControlNonSecure(GPIO0, 1 << 27U);
 
   return (app_main());
 }
