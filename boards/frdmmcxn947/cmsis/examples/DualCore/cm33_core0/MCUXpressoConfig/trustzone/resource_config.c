@@ -6,11 +6,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: TEE v7.0
+product: TEE v8.0
 processor: MCXN947
 package_id: MCXN947VDF
 mcu_data: ksdk2_0
-processor_version: 16.3.0
+processor_version: 24.12.10
 board: FRDM-MCXN947
 toolOptions:
   _output_type_: c_code
@@ -262,15 +262,16 @@ functional_group:
           base_region: {start: '0x00000000', size: '0x00100000'}, domains: [{security: s, template: NO_ACCESS}]}, {id: FlashBank_IFR0_mbc, base_region: {start: '0x00000000',
             size: '0x00010000'}, domains: [{security: s, template: NO_ACCESS}]}, {id: FlashBank_IFR1_mbc, base_region: {start: '0x00000000', size: '0x00004000'},
           domains: [{security: s, template: NO_ACCESS}]}]
-- sau:
-  - enabled: 'false'
-  - all_non_secure: 'false'
-  - generate_code_for_disabled_regions: 'false'
-  - regions: [{index: '0', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '1', enabled: 'false', security: ns, start: '0x00000000',
-      size: '0x00000020'}, {index: '2', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '3', enabled: 'false', security: ns, start: '0x00000000',
-      size: '0x00000020'}, {index: '4', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '5', enabled: 'false', security: ns, start: '0x00000000',
-      size: '0x00000020'}, {index: '6', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '7', enabled: 'false', security: ns, start: '0x00000000',
-      size: '0x00000020'}]
+- saus:
+  - sau:
+    - enabled: 'false'
+    - all_non_secure: 'false'
+    - generate_code_for_disabled_regions: 'false'
+    - regions: [{index: '0', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '1', enabled: 'false', security: ns, start: '0x00000000',
+        size: '0x00000020'}, {index: '2', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '3', enabled: 'false', security: ns, start: '0x00000000',
+        size: '0x00000020'}, {index: '4', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '5', enabled: 'false', security: ns, start: '0x00000000',
+        size: '0x00000020'}, {index: '6', enabled: 'false', security: ns, start: '0x00000000', size: '0x00000020'}, {index: '7', enabled: 'false', security: ns, start: '0x00000000',
+        size: '0x00000020'}]
 - global_options:
   - yes:
     - id: [_trigger_sources_, NSACR_CP0, NSACR_CP1, NSACR_CP10, NSACR_CP11, AHB_MISC_CTRL_REG_DISABLE_MASTER_STRICT_MODE, AHB_MISC_CTRL_REG_ENABLE_SECURE_CHECKING]
@@ -493,25 +494,25 @@ void BOARD_InitAHBSE()
     AHBSC->AIPS_BRIDGE_GROUP4_MEM_RULE3 = 0x33333333U;
     AHBSC->AHB_SECURE_CTRL_PERIPHERAL_RULE0 = 0x00003333U;
 
-    // /* Security level configuration of MBC checker */
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[0] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[1] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[2] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[3] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[4] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[5] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[6] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[7] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM1_BLK_CFG_W[0] = 0;
-    // TRDC->MBC_INDEX[0].MBC_DOM0_MEM2_BLK_CFG_W[0] = 0;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[0] = 0;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[1] = 0x00004000U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[2] = 0x00006000U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[3] = 0x00006400U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[4] = 0x00006600U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[5] = 0x00006644U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[6] = 0x00006660U;
-    // TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[7] = 0x00006666U;
+    /* Security level configuration of MBC checker */
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[0] = 0;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[1] = 0x00004000U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[2] = 0x00006000U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[3] = 0x00006400U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[4] = 0x00006600U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[5] = 0x00006644U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[6] = 0x00006660U;
+    TRDC->MBC_INDEX[0].MBC_MEMN_GLBAC[7] = 0x00006666U;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[0] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[1] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[2] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[3] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[4] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[5] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[6] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[7] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM1_BLK_CFG_W[0] = 0;
+    TRDC->MBC_INDEX[0].MBC_DOM0_MEM2_BLK_CFG_W[0] = 0;
 
     /* Security level configuration of masters */
     AHBSC->MASTER_SEC_LEVEL = 0x8000000CU;
