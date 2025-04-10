@@ -1,11 +1,16 @@
 solution:
-  created-for: CMSIS-Toolbox@2.6.0
+  created-for: CMSIS-Toolbox@2.9.0
   cdefault:
 
   select-compiler:
     - compiler: AC6
 
   compiler: AC6
+
+  misc:
+    - for-compiler: AC6
+      C-CPP:
+        - -gdwarf-5
 
   packs:
     - pack: NXP::MCXN947_DFP@^19.0.0
@@ -17,6 +22,16 @@ solution:
     - type: MCXN947
       board: FRDM-MCXN947
       device: NXP::MCXN947VDF
+      target-set:
+        - set: 
+          debugger:
+            name: CMSIS-DAP
+            start-pname: cm33_core0
+          images:
+            - project-context: core0.Debug
+              load: image+symbols
+            - project-context: core1.Debug
+              load: symbols
 
   build-types:
     - type: Debug
@@ -28,5 +43,5 @@ solution:
       optimize: balanced
 
   projects:
-    - project: ./cm33_core1/core1.cproject.yml
     - project: ./cm33_core0/core0.cproject.yml
+    - project: ./cm33_core1/core1.cproject.yml

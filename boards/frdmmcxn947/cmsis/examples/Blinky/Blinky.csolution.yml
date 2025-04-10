@@ -1,5 +1,5 @@
 solution:
-  created-for: CMSIS-Toolbox@2.6.0
+  created-for: CMSIS-Toolbox@2.9.0
 
   select-compiler:
     - compiler: AC6
@@ -8,9 +8,18 @@ solution:
 
   compiler: AC6
 
+  misc:
+    - for-compiler: AC6
+      C-CPP:
+        - -gdwarf-5
+
   target-types:
     - type: FRDM-MCXN947
       board: NXP::FRDM-MCXN947
+      target-set:
+        - set: 
+          debugger:
+            name: CMSIS-DAP
 
   build-types:
     - type: Debug

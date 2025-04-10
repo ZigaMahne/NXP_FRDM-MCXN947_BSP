@@ -36,4 +36,8 @@ project:
 
   output:
     base-name: core1_image
-    type: bin
+    type:
+      - elf
+      - bin
+      - hex
+      - map
