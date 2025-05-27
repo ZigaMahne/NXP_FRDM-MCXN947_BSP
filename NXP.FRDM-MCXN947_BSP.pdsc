@@ -1798,25 +1798,25 @@
   <csolution> 
     <clayer type="Board" path="boards/frdmmcxn947/cmsis/layers/Default" file="Board.clayer.yml" copy-to="Board/FRDM-MCXN947" condition="Board_Layer"/>
 
-    <template name="Device SingleCore" path="/boards/frdmmcxn947/cmsis/templates/Device/Simple" file="Simple.csolution.yml" condition="Template_Device">
+    <template name="Device SingleCore" path="boards/frdmmcxn947/cmsis/templates/Device/Simple" file="Simple.csolution.yml" condition="Template_Device">
       <description>Single-core project with no TrustZone </description>
     </template>
-    <template name="Device DualCore" path="/boards/frdmmcxn947/cmsis/templates/Device/DualCore" file="DualCore.csolution.yml" condition="Template_Device">
+    <template name="Device DualCore" path="boards/frdmmcxn947/cmsis/templates/Device/DualCore" file="DualCore.csolution.yml" condition="Template_Device">
       <description>Dual-core project with no TrustZone </description>
     </template>
-    <template name="Device SingleCore ROM RAM" path="/boards/frdmmcxn947/cmsis/templates/Device/Simple2" file="Simple2.csolution.yml" condition="Template_Device">
+    <template name="Device SingleCore ROM RAM" path="boards/frdmmcxn947/cmsis/templates/Device/Simple2" file="Simple2.csolution.yml" condition="Template_Device">
       <description>Single-core project with ROM and ROM targets and no TrustZone</description>
     </template>
-    <template name="Device SingleCore TrustZone" path="/boards/frdmmcxn947/cmsis/templates/Device/TrustZone" file="TrustZone.csolution.yml" condition="Template_Device">
+    <template name="Device SingleCore TrustZone" path="boards/frdmmcxn947/cmsis/templates/Device/TrustZone" file="TrustZone.csolution.yml" condition="Template_Device">
       <description>Single-core project with TrustZone setup</description>
     </template>
-    <template name="Board SingleCore" path="/boards/frdmmcxn947/cmsis/templates/Board/Simple" file="Simple.csolution.yml" condition="Template_Board">
+    <template name="Board SingleCore" path="boards/frdmmcxn947/cmsis/templates/Board/Simple" file="Simple.csolution.yml" condition="Template_Board">
       <description>Single-core project with no TrustZone configured for FRDM-MCXN947 Board</description>
     </template>
-    <template name="Board DualCore" path="/boards/frdmmcxn947/cmsis/templates/Board/DualCore" file="DualCore.csolution.yml" condition="Template_Board">
+    <template name="Board DualCore" path="boards/frdmmcxn947/cmsis/templates/Board/DualCore" file="DualCore.csolution.yml" condition="Template_Board">
       <description>Dual-core project with no TrustZone configured for FRDM-MCXN947 Board</description>
     </template>
-    <template name="Board DualCore TrustZone" path="/boards/frdmmcxn947/cmsis/templates/Board/DualCore_TZ" file="DualCore_TZ.csolution.yml" condition="Template_Board">
+    <template name="Board DualCore TrustZone" path="boards/frdmmcxn947/cmsis/templates/Board/DualCore_TZ" file="DualCore_TZ.csolution.yml" condition="Template_Board">
       <description>Dual-core project with TrustZone configured for FRDM-MCXN947 Board</description>
     </template>
   </csolution>
