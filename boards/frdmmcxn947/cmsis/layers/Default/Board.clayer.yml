@@ -3,6 +3,7 @@ layer:
   description: Board setup for Arduino shield
   for-board: NXP::FRDM-MCXN947
   for-device: NXP::MCXN947VDF:cm33_core0
+  device: :cm33_core0
   processor:
     trustzone: secure
 
