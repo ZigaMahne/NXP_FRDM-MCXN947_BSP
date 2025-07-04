@@ -24,11 +24,12 @@ Virtual Resource  | Variable       | Physical Resource on FRDM-MCXN947          
 vioBUTTON0        | vioSignalIn.0  | SW2 WAKEUP                                     |
 vioBUTTON1        | vioSignalIn.1  | SW3 ISP                                        |
 vioLED0           | vioSignalOut.0 | RGB LED Red                                    |
-vioLED1           | vioSignalOut.1 | RGB LED Green                                  |
-vioLED2           | vioSignalOut.2 | RGB LED Blue                                   |
+vioLED1           | vioSignalOut.1 | RGB LED Blue                                   |
 */
 
 /* History:
+ *  Version 1.1.0
+ *    Removed support for LED Green (GPIO0_pin27 pin is used by Arduino D11)
  *  Version 1.0.0
  *    Initial release
  */
@@ -54,10 +55,8 @@ __USED int32_t  vioValue[VIO_VALUE_NUM];    // Memory for value used in vioGetVa
 #if !defined CMSIS_VOUT
 #define LED_0_GPIO                      GPIO0 /* BOARD_INITLEDSPINS_LED_RED_GPIO */
 #define LED_0_PIN                       10U   /* BOARD_INITLEDSPINS_LED_RED_GPIO_PIN */
-#define LED_1_GPIO                      GPIO0 /* BOARD_INITLEDSPINS_LED_GREEN_GPIO */
-#define LED_1_PIN                       27U   /* BOARD_INITLEDSPINS_LED_GREEN_GPIO_PIN */
-#define LED_2_GPIO                      GPIO1 /* BOARD_INITLEDSPINS_LED_BLUE_GPIO */
-#define LED_2_PIN                       2U    /* BOARD_INITLEDSPINS_LED_BLUE_GPIO_PIN */
+#define LED_1_GPIO                      GPIO1 /* BOARD_INITLEDSPINS_LED_BLUE_GPIO */
+#define LED_1_PIN                       2U    /* BOARD_INITLEDSPINS_LED_BLUE_GPIO_PIN */
 
 #define LED_INIT_ON                     (0U)
 #define LED_INIT_OFF                    (1U)
@@ -90,7 +89,6 @@ void vioInit (void) {
   // Turn off all LEDs
   LED_INIT(LED_0_GPIO, LED_0_PIN, LED_INIT_OFF);
   LED_INIT(LED_1_GPIO, LED_1_PIN, LED_INIT_OFF);
-  LED_INIT(LED_2_GPIO, LED_2_PIN, LED_INIT_OFF);
 #endif
 }
 
@@ -115,14 +113,6 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
       LED_ON(LED_1_GPIO, LED_1_PIN);
     } else {
       LED_OFF(LED_1_GPIO, LED_1_PIN);
-    }
-  }
-
-  if ((mask & vioLED2) != 0U) {
-    if ((signal & vioLED2) != 0U) {
-      LED_ON(LED_2_GPIO, LED_2_PIN);
-    } else {
-      LED_OFF(LED_2_GPIO, LED_2_PIN);
     }
   }
 #endif
