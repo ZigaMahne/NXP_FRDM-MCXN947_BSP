@@ -7,11 +7,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v16.0
+product: Pins v17.0
 processor: MCXN947
 package_id: MCXN947VDF
 mcu_data: ksdk2_0
-processor_version: 16.3.0
+processor_version: 25.06.10
 board: FRDM-MCXN947
 external_user_signals: {}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -31,6 +31,8 @@ external_user_signals: {}
 void BOARD_InitBootPins(void)
 {
     BOARD_InitDEBUG_UARTPins();
+    BOARD_InitLEDsPins();
+    BOARD_InitBUTTONsPins();
     BOARD_InitARDUINO_UART();
     BOARD_InitARDUINO_I2C();
     BOARD_InitARDUINO_SPI();
@@ -43,10 +45,10 @@ void BOARD_InitBootPins(void)
 BOARD_InitDEBUG_UARTPins:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: A1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P0, pin_signal: PIO1_8/WUU0_IN10/LPTMR1_ALT3/TRACE_DATA0/FC4_P0/FC5_P4/CT_INP8/SCT0_OUT2/FLEXIO0_D16/EZH_PIO4/PLU_OUT0/ENET0_TXD2/I3C1_SDA/TSI0_CH17/ADC1_A8,
+  - {pin_num: A1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P0, pin_signal: PIO1_8/WUU0_IN10/LPTMR1_ALT3/TRACE_DATA0/FC4_P0/FC5_P4/CT_INP8/SCT0_OUT2/FLEXIO0_D16/SMARTDMA_PIO4/PLU_OUT0/ENET0_TXD2/I3C1_SDA/TSI0_CH17/ADC1_A8,
     identifier: '', slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, passive_filter: disable, pull_value: low,
     input_buffer: enable, invert_input: normal}
-  - {pin_num: B1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P1, pin_signal: PIO1_9/TRACE_DATA1/FC4_P1/FC5_P5/CT_INP9/SCT0_OUT3/FLEXIO0_D17/EZH_PIO5/PLU_OUT1/ENET0_TXD3/I3C1_SCL/TSI0_CH18/ADC1_A9,
+  - {pin_num: B1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P1, pin_signal: PIO1_9/TRACE_DATA1/FC4_P1/FC5_P5/CT_INP9/SCT0_OUT3/FLEXIO0_D17/SMARTDMA_PIO5/PLU_OUT1/ENET0_TXD3/I3C1_SCL/TSI0_CH18/ADC1_A9,
     identifier: '', slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, passive_filter: disable, input_buffer: enable,
     invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -212,13 +214,11 @@ void BOARD_InitSWD_DEBUGPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitLEDsPins:
-- options: {callFromInitBoot: 'false', coreID: cm33_core0, enableClock: 'true'}
+- options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: C4, peripheral: GPIO1, signal: 'GPIO, 2', pin_signal: PIO1_2/TRIG_OUT0/FC3_P2/FC4_P6/CT1_MAT0/SCT0_IN6/FLEXIO0_D10/ENET0_MDC/SAI1_TXD0/CAN0_TXD/TSI0_CH2/ADC0_A18/CMP2_IN0,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
   - {pin_num: B12, peripheral: GPIO0, signal: 'GPIO, 10', pin_signal: PIO0_10/FC0_P6/CT0_MAT0/FLEXIO0_D2/ADC0_B10, slew_rate: fast, open_drain: disable, drive_strength: low,
-    pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: E10, peripheral: GPIO0, signal: 'GPIO, 27', pin_signal: PIO0_27/FC1_P3/CT0_MAT3/ADC0_B19, slew_rate: fast, open_drain: disable, drive_strength: low,
     pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -260,29 +260,6 @@ void BOARD_InitLEDsPins(void)
     /* PORT0_10 (pin B12) is configured as PIO0_10 */
     PORT_SetPinConfig(BOARD_INITLEDSPINS_LED_RED_PORT, BOARD_INITLEDSPINS_LED_RED_PIN, &LED_RED);
 
-    const port_pin_config_t LED_GREEN = {/* Internal pull-up/down resistor is disabled */
-                                         .pullSelect = kPORT_PullDisable,
-                                         /* Low internal pull resistor value is selected. */
-                                         .pullValueSelect = kPORT_LowPullResistor,
-                                         /* Fast slew rate is configured */
-                                         .slewRate = kPORT_FastSlewRate,
-                                         /* Passive input filter is disabled */
-                                         .passiveFilterEnable = kPORT_PassiveFilterDisable,
-                                         /* Open drain output is disabled */
-                                         .openDrainEnable = kPORT_OpenDrainDisable,
-                                         /* Low drive strength is configured */
-                                         .driveStrength = kPORT_LowDriveStrength,
-                                         /* Pin is configured as PIO0_27 */
-                                         .mux = kPORT_MuxAlt0,
-                                         /* Digital input enabled */
-                                         .inputBuffer = kPORT_InputBufferEnable,
-                                         /* Digital input is not inverted */
-                                         .invertInput = kPORT_InputNormal,
-                                         /* Pin Control Register fields [15:0] are not locked */
-                                         .lockRegister = kPORT_UnlockRegister};
-    /* PORT0_27 (pin E10) is configured as PIO0_27 */
-    PORT_SetPinConfig(BOARD_INITLEDSPINS_LED_GREEN_PORT, BOARD_INITLEDSPINS_LED_GREEN_PIN, &LED_GREEN);
-
     const port_pin_config_t LED_BLUE = {/* Internal pull-up/down resistor is disabled */
                                         .pullSelect = kPORT_PullDisable,
                                         /* Low internal pull resistor value is selected. */
@@ -311,10 +288,10 @@ void BOARD_InitLEDsPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitBUTTONsPins:
-- options: {callFromInitBoot: 'false', coreID: cm33_core0, enableClock: 'true'}
+- options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: C14, peripheral: GPIO0, signal: 'GPIO, 6', pin_signal: PIO0_6/ISPMODE_N/FC0_P2/FC1_P6/CT_INP2/HSCMP2_OUT/PDM0_DATA1/CLKOUT/TSI0_CH10, slew_rate: fast,
-    open_drain: disable, drive_strength: low, pull_select: up, pull_enable: enable, input_buffer: enable, invert_input: normal}
+  - {pin_num: C14, peripheral: GPIO0, signal: 'GPIO, 6', pin_signal: PIO0_6/ISPMODE_N/FC0_P2/FC1_P6/CT_INP2/HSCMP2_OUT/PDM0_DATA1/TSI0_CH10, slew_rate: fast, open_drain: disable,
+    drive_strength: low, pull_select: up, pull_enable: enable, input_buffer: enable, invert_input: normal}
   - {pin_num: B7, peripheral: GPIO0, signal: 'GPIO, 23', pin_signal: PIO0_23/WUU0_IN5/EWM0_OUT_b/FC1_P3/CT_INP3/FLEXIO0_D7/ADC0_A15/CMP2_IN2, slew_rate: fast, open_drain: disable,
     drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -385,8 +362,8 @@ void BOARD_InitBUTTONsPins(void)
 BOARD_InitARDUINO_UART:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: T1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P2, pin_signal: PIO4_2/TRIG_IN6/FC2_P2/CT_INP12/EZH_PIO26/PLU_IN2/SINC0_MBIT3/DAC0_OUT/ADC0_A4/ADC1_A4/CMP0_IN4N/CMP1_IN4N/CMP2_IN4N}
-  - {pin_num: U1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P3, pin_signal: PIO4_3/WUU0_IN19/TRIG_IN7/FC2_P3/CT_INP13/EZH_PIO27/PLU_IN3/DAC1_OUT/ADC0_B4/ADC1_B4/CMP0_IN5N/CMP1_IN5N/CMP2_IN5N}
+  - {pin_num: T1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P2, pin_signal: PIO4_2/TRIG_IN6/FC2_P2/CT_INP12/SMARTDMA_PIO26/PLU_IN2/SINC0_MBIT3/DAC0_OUT/ADC0_A4/ADC1_A4/CMP0_IN4N/CMP1_IN4N/CMP2_IN4N}
+  - {pin_num: U1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P3, pin_signal: PIO4_3/WUU0_IN19/TRIG_IN7/FC2_P3/CT_INP13/SMARTDMA_PIO27/PLU_IN3/DAC1_OUT/ADC0_B4/ADC1_B4/CMP0_IN5N/CMP1_IN5N/CMP2_IN5N}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -429,8 +406,8 @@ void BOARD_InitARDUINO_UART(void)
 BOARD_InitARDUINO_I2C:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: P1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P0, pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/EZH_PIO24/PLU_IN0/SINC0_MCLK3}
-  - {pin_num: P2, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P1, pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/EZH_PIO25/PLU_IN1}
+  - {pin_num: P1, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P0, pin_signal: PIO4_0/WUU0_IN18/TRIG_IN6/FC2_P0/CT_INP16/SMARTDMA_PIO24/PLU_IN0/SINC0_MCLK3}
+  - {pin_num: P2, peripheral: LP_FLEXCOMM2, signal: LPFLEXCOMM_P1, pin_signal: PIO4_1/TRIG_IN7/FC2_P1/CT_INP17/SMARTDMA_PIO25/PLU_IN1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -539,23 +516,23 @@ void BOARD_InitARDUINO_SPI(void)
 BOARD_InitENETPins:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: B2, peripheral: ENET0, signal: 'enet_tdata, 0', pin_signal: PIO1_6/TRIG_IN2/FC3_P6/FC5_P2/CT_INP6/SCT0_IN0/FLEXIO0_D14/EZH_PIO2/ENET0_TXD0/SAI1_RX_BCLK/CAN1_TXD/TSI0_CH6/ADC0_A22,
+  - {pin_num: B2, peripheral: ENET0, signal: 'enet_tdata, 0', pin_signal: PIO1_6/TRIG_IN2/FC3_P6/FC5_P2/CT_INP6/SCT0_IN0/FLEXIO0_D14/SMARTDMA_PIO2/ENET0_TXD0/SAI1_RX_BCLK/CAN1_TXD/TSI0_CH6/ADC0_A22,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: A2, peripheral: ENET0, signal: 'enet_tdata, 1', pin_signal: PIO1_7/WUU0_IN9/TRIG_OUT2/FC5_P3/CT_INP7/SCT0_IN1/FLEXIO0_D15/EZH_PIO3/PLU_CLK/ENET0_TXD1/SAI1_RX_FS/CAN1_RXD/TSI0_CH7/ADC0_A23,
+  - {pin_num: A2, peripheral: ENET0, signal: 'enet_tdata, 1', pin_signal: PIO1_7/WUU0_IN9/TRIG_OUT2/FC5_P3/CT_INP7/SCT0_IN1/FLEXIO0_D15/SMARTDMA_PIO3/PLU_CLK/ENET0_TXD1/SAI1_RX_FS/CAN1_RXD/TSI0_CH7/ADC0_A23,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: K5, peripheral: ENET0, signal: enet_mdc, pin_signal: PIO1_20/TRIG_IN2/FC5_P4/FC4_P0/CT3_MAT2/SCT0_OUT8/FLEXIO0_D28/EZH_PIO16/PLU_OUT6/ENET0_MDC/CAN1_TXD/ADC1_A20/CMP1_IN3,
+  - {pin_num: K5, peripheral: ENET0, signal: enet_mdc, pin_signal: PIO1_20/TRIG_IN2/FC5_P4/FC4_P0/CT3_MAT2/SCT0_OUT8/FLEXIO0_D28/SMARTDMA_PIO16/PLU_OUT6/ENET0_MDC/CAN1_TXD/ADC1_A20/CMP1_IN3,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: L5, peripheral: ENET0, signal: enet_mdio, pin_signal: PIO1_21/TRIG_OUT2/FC5_P5/FC4_P1/CT3_MAT3/SCT0_OUT9/FLEXIO0_D29/EZH_PIO17/PLU_OUT7/ENET0_MDIO/SAI1_MCLK/CAN1_RXD/ADC1_A21/CMP2_IN3,
+  - {pin_num: L5, peripheral: ENET0, signal: enet_mdio, pin_signal: PIO1_21/TRIG_OUT2/FC5_P5/FC4_P1/CT3_MAT3/SCT0_OUT9/FLEXIO0_D29/SMARTDMA_PIO17/PLU_OUT7/ENET0_MDIO/SAI1_MCLK/CAN1_RXD/ADC1_A21/CMP2_IN3,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: B3, peripheral: ENET0, signal: enet_tx_en, pin_signal: PIO1_5/FREQME_CLK_IN1/FC3_P5/FC5_P1/CT1_MAT3/SCT0_OUT1/FLEXIO0_D13/EZH_PIO1/ENET0_TXEN/SAI0_RXD1/TSI0_CH5/ADC0_A21/CMP0_IN3,
+  - {pin_num: B3, peripheral: ENET0, signal: enet_tx_en, pin_signal: PIO1_5/FREQME_CLK_IN1/FC3_P5/FC5_P1/CT1_MAT3/SCT0_OUT1/FLEXIO0_D13/SMARTDMA_PIO1/ENET0_TXEN/SAI0_RXD1/TSI0_CH5/ADC0_A21/CMP0_IN3,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: D1, peripheral: ENET0, signal: enet_rx_dv, pin_signal: PIO1_13/TRIG_IN3/FC4_P5/FC3_P1/CT2_MAT3/SCT0_OUT5/FLEXIO0_D21/EZH_PIO9/PLU_OUT3/ENET0_RXDV/CAN1_TXD/TSI0_CH22/ADC1_A13,
+  - {pin_num: D1, peripheral: ENET0, signal: enet_rx_dv, pin_signal: PIO1_13/TRIG_IN3/FC4_P5/FC3_P1/CT2_MAT3/SCT0_OUT5/FLEXIO0_D21/SMARTDMA_PIO9/PLU_OUT3/ENET0_RXDV/CAN1_TXD/TSI0_CH22/ADC1_A13,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: D4, peripheral: ENET0, signal: 'enet_rdata, 0', pin_signal: PIO1_14/FC4_P6/FC3_P2/CT_INP10/SCT0_IN4/FLEXIO0_D22/EZH_PIO10/PLU_IN2/ENET0_RXD0/TSI0_CH23/ADC1_A14,
+  - {pin_num: D4, peripheral: ENET0, signal: 'enet_rdata, 0', pin_signal: PIO1_14/FC4_P6/FC3_P2/CT_INP10/SCT0_IN4/FLEXIO0_D22/SMARTDMA_PIO10/PLU_IN2/ENET0_RXD0/TSI0_CH23/ADC1_A14,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: E4, peripheral: ENET0, signal: 'enet_rdata, 1', pin_signal: PIO1_15/WUU0_IN13/FC3_P3/CT_INP11/SCT0_IN5/FLEXIO0_D23/EZH_PIO11/PLU_IN3/ENET0_RXD1/I3C1_PUR/TSI0_CH24/ADC1_A15,
+  - {pin_num: E4, peripheral: ENET0, signal: 'enet_rdata, 1', pin_signal: PIO1_15/WUU0_IN13/FC3_P3/CT_INP11/SCT0_IN5/FLEXIO0_D23/SMARTDMA_PIO11/PLU_IN3/ENET0_RXD1/I3C1_PUR/TSI0_CH24/ADC1_A15,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: A4, peripheral: ENET0, signal: enet_tx_clk, pin_signal: PIO1_4/WUU0_IN8/FREQME_CLK_IN0/FC3_P4/FC5_P0/CT1_MAT2/SCT0_OUT0/FLEXIO0_D12/EZH_PIO0/ENET0_TX_CLK/SAI0_TXD1/TSI0_CH4/ADC0_A20/CMP0_IN2,
+  - {pin_num: A4, peripheral: ENET0, signal: enet_tx_clk, pin_signal: PIO1_4/WUU0_IN8/FREQME_CLK_IN0/FC3_P4/FC5_P0/CT1_MAT2/SCT0_OUT0/FLEXIO0_D12/SMARTDMA_PIO0/ENET0_TX_CLK/SAI0_TXD1/TSI0_CH4/ADC0_A20/CMP0_IN2,
     slew_rate: fast, open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */

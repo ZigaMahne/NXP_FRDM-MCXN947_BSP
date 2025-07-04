@@ -10,7 +10,7 @@ product: Peripherals v15.0
 processor: MCXN947
 package_id: MCXN947VDF
 mcu_data: ksdk2_0
-processor_version: 16.3.0
+processor_version: 25.06.10
 board: FRDM-MCXN947
 functionalGroups:
 - name: BOARD_InitPeripherals
@@ -79,6 +79,60 @@ static void NVIC_init(void) {
 } */
 
 /***********************************************************************************************************************
+ * GPIO0_custom_init initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'GPIO0_custom_init'
+- type: 'custom_init'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'custom_init'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'GPIO0'
+- config_sets:
+  - general:
+    - user_includes: '#include "clock_config.h"'
+    - user_definitions: ''
+    - global_init: ''
+    - user_code: '  \/\* Enable the clock for GPIO0 \*\/\n  CLOCK_EnableClock(kCLOCK_Gpio0);'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+static void GPIO0_custom_init_init(void) {
+  /* Enable the clock for GPIO0 */
+  CLOCK_EnableClock(kCLOCK_Gpio0);
+}
+
+/***********************************************************************************************************************
+ * GPIO1_custom_init initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'GPIO1_custom_init'
+- type: 'custom_init'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'custom_init'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'GPIO1'
+- config_sets:
+  - general:
+    - user_includes: '#include "clock_config.h"'
+    - user_definitions: ''
+    - global_init: ''
+    - user_code: '  \/\* Enable the clock for GPIO1 \*\/\n  CLOCK_EnableClock(kCLOCK_Gpio1);'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+static void GPIO1_custom_init_init(void) {
+  /* Enable the clock for GPIO1 */
+  CLOCK_EnableClock(kCLOCK_Gpio1);
+}
+
+/***********************************************************************************************************************
  * DebugConsole initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -130,6 +184,8 @@ static void DebugConsole_init(void) {
 void BOARD_InitPeripherals(void)
 {
   /* Initialize components */
+  GPIO0_custom_init_init();
+  GPIO1_custom_init_init();
   DebugConsole_init();
 }
 

@@ -92,20 +92,6 @@ void BOARD_InitSWD_DEBUGPins(void);
 #define BOARD_INITLEDSPINS_LED_RED_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
                                                              /* @} */
 
-/*! @name PORT0_27 (coord E10), P0_27/SJ6[1]
-  @{ */
-
-/* Symbols to be used with GPIO driver */
-#define BOARD_INITLEDSPINS_LED_GREEN_GPIO GPIO0                /*!<@brief GPIO peripheral base pointer */
-#define BOARD_INITLEDSPINS_LED_GREEN_GPIO_PIN 27U              /*!<@brief GPIO pin number */
-#define BOARD_INITLEDSPINS_LED_GREEN_GPIO_PIN_MASK (1U << 27U) /*!<@brief GPIO pin mask */
-
-/* Symbols to be used with PORT driver */
-#define BOARD_INITLEDSPINS_LED_GREEN_PORT PORT0                /*!<@brief PORT peripheral base pointer */
-#define BOARD_INITLEDSPINS_LED_GREEN_PIN 27U                   /*!<@brief PORT pin number */
-#define BOARD_INITLEDSPINS_LED_GREEN_PIN_MASK (1U << 27U)      /*!<@brief PORT pin mask */
-                                                               /* @} */
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
