@@ -40,8 +40,16 @@
 //TODO: #define ARDUINO_UNO_D11     GPIO_PIN(0,0)  // SPIx: MOSI
 //TODO: #define ARDUINO_UNO_D12     GPIO_PIN(0,0)  // SPIx: MISO
 //TODO: #define ARDUINO_UNO_D13     GPIO_PIN(0,0)  // SPIx: SCK
-//TODO: #define ARDUINO_UNO_D14     GPIO_PIN(0,0)  // I2Cx: SDA
-//TODO: #define ARDUINO_UNO_D15     GPIO_PIN(0,0)  // I2Cx: SCL
+//TODO: #define ARDUINO_UNO_D14     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D15     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D16     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D17     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D16     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D17     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D18     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D19     GPIO_PIN(0,0)
+//TODO: #define ARDUINO_UNO_D20     GPIO_PIN(0,0)  // I2Cx: SDA
+//TODO: #define ARDUINO_UNO_D21     GPIO_PIN(0,0)  // I2Cx: SCL
 
 // CMSIS Driver instances on Arduino connector
 #define ARDUINO_UNO_I2C     2
