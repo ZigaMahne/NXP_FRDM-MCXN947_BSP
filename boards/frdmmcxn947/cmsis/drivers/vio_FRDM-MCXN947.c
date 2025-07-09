@@ -1,3 +1,9 @@
+/******************************************************************************
+ * @file     vio_FRDM-MCXN947.c
+ * @brief    Virtual I/O implementation for board FRDM-MCXN947
+ * @version  V1.0.0
+ * @date     9. July 2025
+ ******************************************************************************/
 /*
  * Copyright (c) 2025 Arm Limited (or its affiliates).
  * All rights reserved.
@@ -18,26 +24,21 @@
  */
 
 /*! \page vio_frdm_mcxn947 Physical I/O Mapping
-The table below lists the physical I/O mapping of this CMSIS-Driver VIO implementation.
-Virtual Resource  | Variable       | Physical Resource on FRDM-MCXN947              |
-:-----------------|:---------------|:-----------------------------------------------|
-vioBUTTON0        | vioSignalIn.0  | SW2 WAKEUP                                     |
-vioBUTTON1        | vioSignalIn.1  | SW3 ISP                                        |
-vioLED0           | vioSignalOut.0 | RGB LED Red                                    |
-vioLED1           | vioSignalOut.1 | RGB LED Blue                                   |
-*/
 
-/* History:
- *  Version 1.1.0
- *    Removed support for LED Green (GPIO0_pin27 pin is used by Arduino D11)
- *  Version 1.0.0
- *    Initial release
- */
+The table below lists the physical I/O mapping of this CMSIS-Driver VIO implementation.
+
+| Virtual I/O   | Variable       | Board component      | Pin
+|:--------------|:---------------|:---------------------|:------
+| vioBUTTON0    | vioSignalIn.0  | WAKEUP button (SW2)  | P0_23
+| vioBUTTON1    | vioSignalIn.1  | ISP button    (SW3)  | P0_06
+| vioLED0       | vioSignalOut.0 | LED red       (RGB)  | P0_10
+| vioLED1       | vioSignalOut.1 | LED blue      (RGB)  | P1_02
+*/
 
 #include <string.h>
 #include "cmsis_vio.h"
 
-#include "RTE_Components.h"                 // Component selection
+#include "RTE_Components.h"                     // Component selection
 #include CMSIS_device_header
 
 #if !defined CMSIS_VOUT || !defined CMSIS_VIN
@@ -45,18 +46,20 @@ vioLED1           | vioSignalOut.1 | RGB LED Blue                               
 #endif
 
 // VIO input, output definitions
-#define VIO_VALUE_NUM           3U          // Number of values
+#ifndef VIO_VALUE_NUM
+#define VIO_VALUE_NUM           5U              // Number of values
+#endif
 
 // VIO input, output variables
-__USED uint32_t vioSignalIn;                // Memory for incoming signal
-__USED uint32_t vioSignalOut;               // Memory for outgoing signal
-__USED int32_t  vioValue[VIO_VALUE_NUM];    // Memory for value used in vioGetValue/vioSetValue
+static uint32_t vioSignalIn             __USED; // Memory for incoming signal
+static uint32_t vioSignalOut            __USED; // Memory for outgoing signal
+static int32_t  vioValue[VIO_VALUE_NUM] __USED; // Memory for value used in vioGetValue/vioSetValue
 
 #if !defined CMSIS_VOUT
-#define LED_0_GPIO                      GPIO0 /* BOARD_INITLEDSPINS_LED_RED_GPIO */
-#define LED_0_PIN                       10U   /* BOARD_INITLEDSPINS_LED_RED_GPIO_PIN */
-#define LED_1_GPIO                      GPIO1 /* BOARD_INITLEDSPINS_LED_BLUE_GPIO */
-#define LED_1_PIN                       2U    /* BOARD_INITLEDSPINS_LED_BLUE_GPIO_PIN */
+#define LED_0_GPIO                      GPIO0   // BOARD_INITLEDSPINS_LED_RED_GPIO
+#define LED_0_PIN                       10U     // BOARD_INITLEDSPINS_LED_RED_GPIO_PIN
+#define LED_1_GPIO                      GPIO1   // BOARD_INITLEDSPINS_LED_BLUE_GPIO
+#define LED_1_PIN                       2U      // BOARD_INITLEDSPINS_LED_BLUE_GPIO_PIN
 
 #define LED_INIT_ON                     (0U)
 #define LED_INIT_OFF                    (1U)
@@ -71,10 +74,10 @@ __USED int32_t  vioValue[VIO_VALUE_NUM];    // Memory for value used in vioGetVa
 #endif
 
 #if !defined CMSIS_VIN
-#define BUTTON_0_GPIO                   GPIO0 /* BOARD_INITBUTTONSPINS_SW2_GPIO */
-#define BUTTON_0_PIN                    23U   /* BOARD_INITBUTTONSPINS_SW2_GPIO_PIN */
-#define BUTTON_1_GPIO                   GPIO0 /* BOARD_INITBUTTONSPINS_SW3_GPIO */
-#define BUTTON_1_PIN                    6U    /* BOARD_INITBUTTONSPINS_SW3_GPIO_PIN */
+#define BUTTON_0_GPIO                   GPIO0   // BOARD_INITBUTTONSPINS_SW2_GPIO
+#define BUTTON_0_PIN                    23U     // BOARD_INITBUTTONSPINS_SW2_GPIO_PIN
+#define BUTTON_1_GPIO                   GPIO0   // BOARD_INITBUTTONSPINS_SW3_GPIO
+#define BUTTON_1_PIN                    6U      // BOARD_INITBUTTONSPINS_SW3_GPIO_PIN
 #endif
 
 // Initialize test input, output.
@@ -123,7 +126,7 @@ uint32_t vioGetSignal (uint32_t mask) {
   uint32_t signal;
 
 #if !defined CMSIS_VIN
-  // Get input signals from buttons and joystick
+  // Get input signals from buttons
   if ((mask & vioBUTTON0) != 0U) {
     if (!GPIO_PinRead (BUTTON_0_GPIO, BUTTON_0_PIN)) {
       vioSignalIn |=  vioBUTTON0;
@@ -146,6 +149,7 @@ uint32_t vioGetSignal (uint32_t mask) {
 }
 
 // Set value output.
+//   Note: vioAOUT not supported.
 void vioSetValue (uint32_t id, int32_t value) {
   uint32_t index = id;
 #if !defined CMSIS_VOUT
@@ -166,22 +170,22 @@ void vioSetValue (uint32_t id, int32_t value) {
 }
 
 // Get value input.
+//   Note: vioAIN not supported.
 int32_t vioGetValue (uint32_t id) {
   uint32_t index = id;
-  int32_t  value = 0;
+  int32_t  value;
 #if !defined CMSIS_VIN
 // Add user variables here:
 
 #endif
 
   if (index >= VIO_VALUE_NUM) {
-    return value;                       /* return default in case of out-of-range index */
+    return 0U;                          /* return 0 in case of out-of-range index */
   }
 
 #if !defined CMSIS_VIN
 // Add user code here:
 
-//   vioValue[index] = ...;
 #endif
 
   value = vioValue[index];

@@ -1784,7 +1784,7 @@
         <file category="source" name="boards/frdmmcxn947/cmsis/drivers/EMAC_MCXN9xx.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="FRDM-MCXN947" Cversion="1.1.0" Capiversion="1.0.0" condition="CMSIS_Driver_VIO">
+    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="FRDM-MCXN947" Cversion="1.0.0" Capiversion="1.0.0" condition="CMSIS_Driver_VIO">
       <description>Virtual I/O implementation for FRDM-MCXN947</description>
       <RTE_Components_h>
         #define RTE_VIO_BOARD
