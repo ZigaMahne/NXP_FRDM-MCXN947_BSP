@@ -1,3 +1,4 @@
+# A project translates into one executable or library.
 project:
   device: :cm33_core0
   processor:
@@ -9,6 +10,8 @@ project:
         path: ./MCUXpressoConfig
         name: ConfigTools
 
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
   components:
     - component: Device:Config Tools:Init
     - component: Device:Startup
@@ -40,6 +43,7 @@ project:
     - component: CMSIS-Compiler:STDIN:Custom
     - component: CMSIS-Compiler:STDOUT:Custom
 
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: App
       files:
@@ -65,6 +69,7 @@ project:
       define:
         - CPU_MCXN947VDF_cm33_core0
 
+  # List executable file formats to be generated.
   output:
     type:
       - elf

@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2024 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2025 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -18,26 +18,27 @@
 
 #include "RTE_Components.h"
 #include CMSIS_device_header
-
 #include "main.h"
-
 #include "cmsis_vio.h"
+#include "fsl_clock.h"
 
-/*-----------------------------------------------------------------------------
- * Application main function
- *----------------------------------------------------------------------------*/
+/*
+  Application main function.
+*/
 int app_main (void) {
   uint32_t n;
 
   while (1) {
     /* Switch LED1 on */
     vioSetSignal(vioLED1, vioLEDon);
+
     /* Wait a bit */
-    for(n=SystemCoreClock/20; n != 0; n--) { __NOP(); }
+    SDK_DelayAtLeastUs(1000000U, SystemCoreClock);
 
     /* Switch LED1 off */
     vioSetSignal(vioLED1, vioLEDoff);
+
     /* Wait a bit */
-    for(n=SystemCoreClock/20; n != 0; n--) { __NOP(); }
+    SDK_DelayAtLeastUs(1000000U, SystemCoreClock);
   }
 }
