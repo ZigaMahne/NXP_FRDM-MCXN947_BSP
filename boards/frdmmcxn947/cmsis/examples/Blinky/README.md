@@ -9,7 +9,9 @@ is available with various real-time operating systems, for example RTX5 or FreeR
 
 ## Operation
 
-- At start the vioLED0 blinks in 1 sec interval.
+- At start
+  - outputs "Blinky Example" to UART that is connected to MCU-Link (baudrate 115200bps)
+  - blinks vioLED0 in 1 sec interval.
 - The vioBUTTON0 changes the blink frequency and start/stops vioLED1.
 
 ### CMSIS-Driver Virtual I/O mapping
@@ -18,4 +20,4 @@ is available with various real-time operating systems, for example RTX5 or FreeR
 |:----------------------|:--------------------------------------
 | vioBUTTON0            | WAKEUP button (SW2)
 | vioLED0               | LED red       (RGB)
-| vioLED1               | LED green     (RGB)
+| vioLED1               | LED blue      (RGB)

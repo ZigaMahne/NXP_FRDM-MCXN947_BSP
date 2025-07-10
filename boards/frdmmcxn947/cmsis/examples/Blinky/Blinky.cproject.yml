@@ -1,5 +1,11 @@
+# A project translates into one executable or library.
 project:
   device: :cm33_core0
+
+  # Project define
+  define:
+    - OS_IDLE_THREAD_NAME: \"Idle\"
+    - OS_TIMER_THREAD_NAME: \"Timer\"
 
   generators:
     options:
@@ -7,19 +13,14 @@ project:
         path: ./MCUXpressoConfig
         name: ConfigTools
 
-  packs:
-    - pack: ARM::CMSIS@^6.0.0
-    - pack: ARM::CMSIS-Compiler@^2.1.0
-    - pack: ARM::CMSIS-RTX@5.9.0
-    - pack: NXP::FRDM-MCXN947_BSP@^19.0.0
-    - pack: NXP::MCXN947_DFP@^19.0.0
-
   setups:
     - setup: Options for Project
       processor:
         fpu: sp
         trustzone: "off"
 
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
   components:
     - component: CMSIS:CORE
     - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
@@ -51,23 +52,25 @@ project:
     - component: Device:SDK Utilities:assert_lite
     - component: Device:SDK Utilities:debug_console_lite
     - component: Device:SDK Utilities:str
+
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: App
       files:
-        - file: Blinky.c
+        - file: ./Blinky.c
     - group: Board
       files:
         - file: ./main.c
         - file: ./main.h
-        - file: ./FRDM-MCXN947.h
         - file: ./retarget_stdio.c
 
   linker:
-    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
+    - script: ./RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.scf
       for-compiler: AC6
-    - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
+    - script: ./RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash.ld
       for-compiler: GCC
 
+  # List executable file formats to be generated.
   output:
     type:
       - elf

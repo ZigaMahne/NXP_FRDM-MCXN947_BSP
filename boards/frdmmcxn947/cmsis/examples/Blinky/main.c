@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2024 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2025 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -17,23 +17,11 @@
  *---------------------------------------------------------------------------*/
 
 #include "RTE_Components.h"
-#include  CMSIS_device_header
 #include "cmsis_vio.h"
-#ifdef    CMSIS_shield_header
-#include  CMSIS_shield_header
-#endif
-
 #include "clock_config.h"
 #include "peripherals.h"
 #include "pin_mux.h"
-
 #include "main.h"
-
-#ifdef CMSIS_shield_header
-__WEAK int32_t shield_setup (void) {
-  return 0;
-}
-#endif
 
 int main (void) {
 
@@ -47,10 +35,6 @@ int main (void) {
 
   /* Initialize Virtual I/O */
   vioInit();
-
-#ifdef CMSIS_shield_header
-  shield_setup();
-#endif
 
   return (app_main());
 }
