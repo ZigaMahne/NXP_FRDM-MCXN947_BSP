@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2024-2025 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2025 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -19,13 +19,11 @@
 #include "RTE_Components.h"
 #include  CMSIS_device_header
 #include "cmsis_vio.h"
-
 #include "clock_config.h"
 #include "peripherals.h"
 #include "pin_mux.h"
-
-#include "main.h"
 #include "fsl_gpio.h"
+#include "main.h"
 
 int main (void) {
 
@@ -37,8 +35,8 @@ int main (void) {
   /* Initialize Virtual I/O */
   vioInit();
 
-  /* Enable non-secure control of GPIO0_27 */
-  GPIO_EnablePinControlNonSecure(GPIO0, 1 << 27U);
+  /* Enable non-secure control of vioLED1 */
+  GPIO_EnablePinControlNonSecure(BOARD_INITLEDSPINS_LED_BLUE_GPIO, BOARD_INITLEDSPINS_LED_BLUE_GPIO_PIN_MASK);
 
   return (app_main());
 }

@@ -1,7 +1,13 @@
+# A project translates into one executable or library.
 project:
   device: :cm33_core0
   processor:
     trustzone: secure
+
+  # Project define
+  define:
+    - OS_IDLE_THREAD_NAME: \"Idle\"
+    - OS_TIMER_THREAD_NAME: \"Timer\"
 
   generators:
     options:
@@ -9,7 +15,20 @@ project:
         path: ./MCUXpressoConfig
         name: ConfigTools
 
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
   components:
+    - component: CMSIS:CORE
+    - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+
+    - component: CMSIS:OS Tick:SysTick
+    - component: CMSIS:RTOS2:Keil RTX5&Source
+
     - component: Device:Config Tools:Init
     - component: Device:Startup
     - component: Device:CMSIS:MCXN947_header
@@ -26,6 +45,7 @@ project:
     - component: Device:SDK Drivers:lpuart_edma
     - component: Device:SDK Drivers:mailbox
     - component: Device:SDK Drivers:mcx_spc
+    - component: Device:SDK Drivers:port
     - component: Device:SDK Drivers:reset
 
     - component: Device:SDK Utilities:assert_lite
@@ -41,12 +61,7 @@ project:
       #     Link:
       #       - --keep="*(*core1_code)"
 
-    - component: CMSIS:CORE
-    - component: CMSIS Driver:VIO:Board&FRDM-MCXN947
-
-    - component: CMSIS:OS Tick:SysTick
-    - component: CMSIS:RTOS2:Keil RTX5&Source
-
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: App
       files:
@@ -56,6 +71,7 @@ project:
       files:
         - file: ./main.c
         - file: ./main.h
+        - file: ./retarget_stdio.c
 
     - group: Documentation
       files:
@@ -76,6 +92,7 @@ project:
       define:
         - CPU_MCXN947VDF_cm33_core0
 
+  # List executable file formats to be generated.
   output:
     type:
       - elf

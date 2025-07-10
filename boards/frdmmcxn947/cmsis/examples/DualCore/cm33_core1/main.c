@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2024 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2025 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -18,7 +18,6 @@
 
 #include "RTE_Components.h"
 #include  CMSIS_device_header
-
 #include "main.h"
 
 #ifndef CORE1_SYSTEM_CORE_CLOCK

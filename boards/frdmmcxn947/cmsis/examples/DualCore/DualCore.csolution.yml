@@ -1,29 +1,37 @@
+# A solution is a collection of related projects that share same base configuration.
 solution:
   created-for: CMSIS-Toolbox@2.9.0
   cdefault:
 
+  # List of tested compilers that can be selected
   select-compiler:
     - compiler: AC6
 
   compiler: AC6
 
+  # Miscellaneous toolchain controls directly passed to the tools
   misc:
-    - for-compiler: AC6
+    - for-compiler: AC6      # change to -gdwarf-4 for debugging using uVision
       C-CPP:
         - -gdwarf-5
+      ASM:
+        - -gdwarf-5
 
+  # List the packs that define the device and/or board.
   packs:
     - pack: NXP::MCXN947_DFP@^19.0.0
     - pack: NXP::FRDM-MCXN947_BSP@^19.0.0
     - pack: ARM::CMSIS@^6.1.0
     - pack: ARM::CMSIS-RTX@^5.9.0
+    - pack: ARM::CMSIS-Compiler@^2.1.0
 
+  # List different hardware targets that are used to deploy the solution.
   target-types:
-    - type: MCXN947
-      board: FRDM-MCXN947
+    - type: FRDM-MCXN947
+      board: NXP::FRDM-MCXN947
       device: NXP::MCXN947VDF
       target-set:
-        - set: 
+        - set:
           debugger:
             name: CMSIS-DAP
             start-pname: cm33_core0
@@ -33,6 +41,7 @@ solution:
             - project-context: core1.Debug
               load: symbols
 
+  # List of different build configurations.
   build-types:
     - type: Debug
       debug: on
@@ -42,6 +51,7 @@ solution:
       debug: off
       optimize: balanced
 
+  # List related projects.
   projects:
     - project: ./cm33_core0/core0.cproject.yml
     - project: ./cm33_core1/core1.cproject.yml
