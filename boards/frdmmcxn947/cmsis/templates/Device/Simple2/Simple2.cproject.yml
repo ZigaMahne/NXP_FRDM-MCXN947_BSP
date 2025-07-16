@@ -9,7 +9,7 @@ project:
         name: ConfigTools
 
   setups:
-    - setup: Options for project
+    - setup: Options for Project
       processor:
         fpu: sp
         trustzone: "off"
@@ -29,6 +29,7 @@ project:
 
     - component: CMSIS:CORE
 
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: Main
       files:
@@ -36,3 +37,11 @@ project:
 
   linker:
     - regions: $RegionsHeader$
+
+  # List executable file formats to be generated.
+  output:
+    type:
+      - elf
+      - bin
+      - hex
+      - map

@@ -1,6 +1,9 @@
+# A project translates into one executable or library.
 project:
   device: :cm33_core1
 
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
   components:
     - component: Device:Startup
     - component: Device:CMSIS:MCXN947_header
@@ -13,6 +16,7 @@ project:
 
     - component: CMSIS:CORE
 
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: Board
       files:
@@ -23,6 +27,11 @@ project:
       define:
         - CPU_MCXN947VDF_cm33_core1
 
+  # List executable file formats to be generated.
   output:
     base-name: core1_image
-    type: bin
+    type:
+      - elf
+      - bin
+      - hex
+      - map

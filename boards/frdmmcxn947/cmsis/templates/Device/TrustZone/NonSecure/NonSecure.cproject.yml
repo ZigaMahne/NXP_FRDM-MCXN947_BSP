@@ -27,6 +27,7 @@ project:
 
     - component: CMSIS:CORE
 
+  # List of source groups and files added to a project or a layer.
   groups:
     - group: Main
       files:
@@ -38,3 +39,11 @@ project:
 
     - script: RTE/Device/MCXN947VDF_cm33_core0/MCXN947_cm33_core0_flash_ns.ld
       for-compiler: GCC
+
+  # List executable file formats to be generated.
+  output:
+    type:
+      - elf
+      - bin
+      - hex
+      - map
